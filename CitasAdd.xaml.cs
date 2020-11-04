@@ -108,7 +108,7 @@ namespace ProyectoPrograIV
                 baseDatos.Open();
                 try
                 {
-                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ({id_user.Text}, (select id_medico from medico where nombre={doctor_lista.SelectedValue}), '{año}-{mes}-{dia}', '{hora}:{minuto}')";
+                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ({id_user.Text}, (select id_medico from medico where nombre={doctor_lista.SelectedValue}), '{mes}.{dia}.{año}', '{hora}:{minuto}')";
                     MySqlCommand cmd = db.CommandDB(comando, baseDatos);
 
                     cmd.ExecuteNonQuery();
