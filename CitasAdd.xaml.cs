@@ -57,11 +57,7 @@ namespace ProyectoPrograIV
             ContentDialogResult result = await noWifiDialog.ShowAsync();
         }
         
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            id_user.Text = e.Parameter.ToString();
-            base.OnNavigatedTo(e);
-        }
+  
         private void especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             doctor_lista.Items.Clear();
@@ -80,13 +76,18 @@ namespace ProyectoPrograIV
         //Metodo que actualizara los limites de hora segun el doctor
         private void doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            string cadena = (string)doctor_lista.SelectedItem;
+            string[] valores = cadena.Split(" ");
+            for (int i = 0; i<cadena.Length; i++)
+            {
+                Debug.WriteLine(valores[i]);
+            }
 
         }
 
         private void regresar_btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(BlankPage1));
+            this.Frame.Navigate(typeof(BlankPage1), id_user.Text);
         }
 
         private void Agendar_btn_Click(object sender, RoutedEventArgs e)
@@ -108,7 +109,7 @@ namespace ProyectoPrograIV
                 baseDatos.Open();
                 try
                 {
-                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ({id_user.Text}, (select id_medico from medico where nombre={doctor_lista.SelectedValue}), '{mes}.{dia}.{año}', '{hora}:{minuto}')";
+                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ((select id_user from usersxd where name='{Sesion.Mail}'), (select id_medico from medico where nombre={doctor_lista.SelectedValue}), '{mes}.{dia}.{año}', '{hora}:{minuto}')";
                     MySqlCommand cmd = db.CommandDB(comando, baseDatos);
 
                     cmd.ExecuteNonQuery();

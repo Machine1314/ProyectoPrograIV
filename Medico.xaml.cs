@@ -27,23 +27,14 @@ namespace ProyectoPrograIV
     /// </summary>
     public sealed partial class BlankPage6 : Page
     {
+
+        private static DataBase db = new DataBase();
+        private MySqlConnection baseDatos = db.ConectionDB();
         public BlankPage6()
         {
             this.InitializeComponent();
-           
-            
-
-        }
- 
-        private static DataBase db = new DataBase();
-        private MySqlConnection baseDatos = db.ConectionDB();
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
             baseDatos.Open();
-           string parametro = e.Parameter.ToString();
-            email.Text = parametro;
-            email.Visibility = Visibility.Collapsed;
-            String comando = $"select nombre, apellido from medico where email='{e.Parameter}'";
+            String comando = $"select nombre, apellido from medico where email='{Sesion.Mail}'";
             MySqlCommand cmd = db.CommandDB(comando, baseDatos);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (mysqlread.Read())
@@ -55,8 +46,10 @@ namespace ProyectoPrograIV
                 saludoMsg.Text = "Bienvenido";
             }
             baseDatos.Close();
-            base.OnNavigatedTo(e);
+
         }
+ 
+      
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));

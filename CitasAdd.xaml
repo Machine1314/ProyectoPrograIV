@@ -10,8 +10,8 @@
         <ImageBrush ImageSource="/Assets/fondo3.png"/>
     </Page.Background>
 
-    <Grid>
-        <TextBlock x:Name="cita_header" HorizontalAlignment="Left" Height="80" Margin="474,22,0,0" Text="Nueva Cita Médica" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="40"/>
+    <Grid Width="1280" Height="720">
+        <TextBlock x:Name="cita_header" Height="80" Margin="474,22,0,0" Text="Nueva Cita Médica" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" HorizontalAlignment="Left" Width="430"/>
         <TextBlock x:Name="fecha_header" HorizontalAlignment="Left" Margin="65,324,0,0" Text="Día:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
             <TextBlock.RenderTransform>
                 <CompositeTransform SkewX="1.21" TranslateX="0.729"/>
