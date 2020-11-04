@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -62,12 +63,13 @@ namespace ProyectoPrograIV
         {
             doctor_lista.Items.Clear();
             baseDatos.Open();
-            string comando = $"select nombre, apellido from medico where id_especialidad=(select id_especialidad from especialidad where nombre='{especialidad_lista.SelectedValue}')";
+            string comando = $"select nombre, apellido, id_medico from medico where id_especialidad=(select id_especialidad from especialidad where nombre='{especialidad_lista.SelectedValue}')";
             MySqlCommand cmd = db.CommandDB(comando, baseDatos);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             while (mysqlread.Read())
             {
-                doctor_lista.Items.Add(mysqlread.GetString(0) + " " + mysqlread.GetString(1));
+                string objeto = $"{mysqlread.GetString(0)} {mysqlread.GetString(1)} {int.Parse(mysqlread.GetString(2))}";
+                doctor_lista.Items.Add(objeto);
             }
             baseDatos.Close();
 
@@ -76,13 +78,9 @@ namespace ProyectoPrograIV
         //Metodo que actualizara los limites de hora segun el doctor
         private void doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string cadena = (string)doctor_lista.SelectedItem;
-            string[] valores = cadena.Split(" ");
-            for (int i = 0; i<cadena.Length; i++)
-            {
-                Debug.WriteLine(valores[i]);
-            }
-
+            string phrase = doctor_lista.SelectedValue.ToString();
+            string[] words = phrase.Split(' ');
+            Sesion.Id_medico = int.Parse(words[2]);
         }
 
         private void regresar_btn_Click(object sender, RoutedEventArgs e)
@@ -109,7 +107,7 @@ namespace ProyectoPrograIV
                 baseDatos.Open();
                 try
                 {
-                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ((select id_user from usersxd where name='{Sesion.Mail}'), (select id_medico from medico where nombre={doctor_lista.SelectedValue}), '{mes}.{dia}.{año}', '{hora}:{minuto}')";
+                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ((select user_id from usersxd where email='{Sesion.Mail}'), {Sesion.Id_medico}, '{mes}.{dia}.{año}', '{hora}:{minuto}')";
                     MySqlCommand cmd = db.CommandDB(comando, baseDatos);
 
                     cmd.ExecuteNonQuery();

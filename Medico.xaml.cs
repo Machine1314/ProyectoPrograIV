@@ -34,12 +34,13 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
             baseDatos.Open();
-            String comando = $"select nombre, apellido from medico where email='{Sesion.Mail}'";
+            String comando = $"select nombre, apellido, id_medico from medico where email='{Sesion.Mail}'";
             MySqlCommand cmd = db.CommandDB(comando, baseDatos);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (mysqlread.Read())
             {
                 saludoMsg.Text = $"Bienvenido, {mysqlread.GetString(0)} {mysqlread.GetString(1)}";
+                Sesion.Id_medico = int.Parse(mysqlread.GetString(2));
             }
             else
             {
@@ -62,7 +63,7 @@ namespace ProyectoPrograIV
             int mes = picker.Date.Value.Month;
             Debug.WriteLine(anio + ":" + mes + ":" + dia );
             string comandoCita = $"select id_cita, us.name, us.edad, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
-                $"and id_medico=(select id_medico from medico where email='{email.Text}') ";
+                $"and id_medico=(select id_medico from medico where email='{Sesion.Mail}') ";
 
             baseDatos.Open();
             try
