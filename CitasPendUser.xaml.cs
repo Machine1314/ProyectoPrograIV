@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ProyectoPrograIV;
+using System.Globalization;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,6 +33,7 @@ namespace ProyectoPrograIV
   
         public BlankPage1()
         {
+            CultureInfo provider = CultureInfo.InvariantCulture;
             this.InitializeComponent();
             
             Debug.WriteLine("Mail:" + Sesion.Mail);
@@ -51,7 +53,7 @@ namespace ProyectoPrograIV
             }
             baseDatos.Close();
             baseDatos.Open();
-            string comando2 = $"select id_cita, hora, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
+            string comando2 = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
             try
             {
                 MySqlCommand cmd2 = db.CommandDB(comando2, baseDatos);
@@ -59,13 +61,15 @@ namespace ProyectoPrograIV
                 while (mysqlread2.Read())
                 {
                     TextBlock textoBlock = new TextBlock();
-                    textoBlock.Text = $@"{mysqlread2.GetString(0)}          {mysqlread2.GetString(1)}                    {mysqlread2.GetString(2)} {mysqlread2.GetString(3)}";
+                    textoBlock.Text = $@"{mysqlread2.GetString(0)}          {mysqlread2.GetString(1)}          {mysqlread2.GetMySqlDateTime(2)}       {mysqlread2.GetString(3)} {mysqlread2.GetString(4)}";
                     textoBlock.FontSize = 32;
                     citas_list.Items.Add(textoBlock);
                 }
             }
             catch (MySqlException mse)
             {
+
+
                 DisplayDialog("Error", mse.Message);
             }
 

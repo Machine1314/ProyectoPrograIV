@@ -11,15 +11,7 @@
     </Page.Background>
 
     <Grid>
-
-
-
-
         <Rectangle Height="570" Margin="0,122,45,0" Stroke="#FF0E0000" VerticalAlignment="Top" Width="881" StrokeThickness="5" HorizontalAlignment="Right"/>
-
-
-
-
         <TextBlock x:Name="txt_citas"  Margin="0,148,506,523" Text="Citas Pendientes:" TextWrapping="Wrap" Width="338" FontSize="35" HorizontalAlignment="Right"/>
         <TextBlock x:Name="txt_bnd" TextWrapping="Wrap" Margin="75,31,384,610" FontSize="40" FocusVisualSecondaryBrush="#999D3E3E" FocusVisualPrimaryBrush="#FF9C5555" FontWeight="Bold"><Run/><LineBreak/><Run/></TextBlock>
         <Button x:Name="NuevaCita_btn" Content="Agendar Nueva Cita" Margin="25,348,955,277" VerticalAlignment="Stretch" FontSize="30" Click="NuevaCita_btn_Click" FocusVisualSecondaryBrush="#993484B4" Background="#33267B90" HorizontalAlignment="Stretch"/>
@@ -40,14 +32,12 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="45"  >
                         <TextBlock Text="ID" Margin="8,0" Width="100" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
-                        <TextBlock Text="Hora" Width="300" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Hora" Width="206" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Fecha" Width="221" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
                         <TextBlock Text="Medico" Width="300" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
-
                     </StackPanel>
                 </DataTemplate>
             </ListView.HeaderTemplate>
-
         </ListView>
-
     </Grid>
 </Page>

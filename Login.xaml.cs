@@ -67,6 +67,7 @@ namespace ProyectoPrograIV
                     MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
                     if (mysqlread2.Read())
                     {
+                        Sesion.Id_medico = int.Parse(mysqlread2.GetString(0));
                             this.Frame.Navigate(typeof(BlankPage6));
                     }
                     else

@@ -58,12 +58,13 @@ namespace ProyectoPrograIV
 
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
+            citas_list.Items.Clear();
             int dia = picker.Date.Value.Day;
             int anio = picker.Date.Value.Year;
             int mes = picker.Date.Value.Month;
             Debug.WriteLine(anio + ":" + mes + ":" + dia );
-            string comandoCita = $"select id_cita, us.name, us.edad, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
-                $"and id_medico=(select id_medico from medico where email='{Sesion.Mail}') ";
+            string comandoCita = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
+                $"and id_medico={Sesion.Id_medico}";
 
             baseDatos.Open();
             try
@@ -72,13 +73,20 @@ namespace ProyectoPrograIV
                 MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 if (mysqlread.Read())
                 {
-                    fechas.Text = $@"Id de la cita: {mysqlread.GetString(0)}  Nombre del Paciente: {mysqlread.GetString(1)}
-Edad del Paciente: {mysqlread.GetString(2)}
-Hora: {mysqlread.GetString(3)}";
+                    while (mysqlread.Read())
+                    {
+                        TextBlock textoBlock = new TextBlock();
+                        textoBlock.Text = $@"{mysqlread.GetString(0)}          {mysqlread.GetString(2)}                    {mysqlread.GetString(1)}";
+                        textoBlock.FontSize = 32;
+                        citas_list.Items.Add(textoBlock);
+                    }
                 }
                 else
                 {
-                    fechas.Text = "Sin citas para este dia";
+                    TextBlock textoBlock = new TextBlock();
+                    textoBlock.FontSize = 32;
+                    textoBlock.Text = "Sin citas para la fecha ingresada";
+                    citas_list.Items.Add(textoBlock);
                 }
             }catch(MySqlException mse)
             {

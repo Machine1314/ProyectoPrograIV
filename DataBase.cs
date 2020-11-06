@@ -16,7 +16,7 @@ namespace ProyectoPrograIV
         {
             try
             {
-                string M_str_sqlcon = "server = 127.0.0.1; user id = root; database = misc";
+                string M_str_sqlcon = "server = 127.0.0.1; user id = root; database = misc; Convert Zero Datetime=True; Allow Zero Datetime=True";
                 MySqlConnection mysqlcon = new MySqlConnection(M_str_sqlcon);
                 return mysqlcon;
             } catch (MySqlException mse)

@@ -11,12 +11,30 @@
     </Page.Background>
 
     <Grid>
-        <Rectangle Margin="510,160,41,30" Stroke="Black" StrokeThickness="3"/>
+        <Rectangle Margin="465,160,41,30" Stroke="Black" StrokeThickness="3"/>
         <TextBlock x:Name="saludoMsg" Margin="44,60,546,610" Text="TextBlock" TextWrapping="Wrap" FontSize="40"/>
         <Button Content="Cerrar Sesion" Margin="1035,61,0,0" VerticalAlignment="Top" Click="Button_Click" FontSize="25" FontWeight="Bold" Width="177" Height="50"/>
-        <CalendarDatePicker x:Name="picker" Margin="62,402,0,0" VerticalAlignment="Top" DateChanged="CalendarDatePicker_DateChanged" FontSize="20" FontWeight="Bold" FontStyle="Italic" Width="416" Height="65"/>
-        <TextBlock x:Name="fechas" Margin="555,205,92,51" Text="" TextWrapping="Wrap" FontSize="30" FontWeight="Bold"/>
-        <TextBlock Margin="126,340,0,0" Text="Seleccione la fecha" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Foreground="Black" SelectionHighlightColor="#FFF76161" HorizontalAlignment="Left" Width="318" Height="40" VerticalAlignment="Top"/>
+        <CalendarDatePicker x:Name="picker" Margin="62,402,0,0" VerticalAlignment="Top" DateChanged="CalendarDatePicker_DateChanged" FontSize="20" FontWeight="Bold" FontStyle="Italic" Width="363" Height="65"/>
+        <TextBlock Margin="111,340,0,0" Text="Seleccione la fecha" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Foreground="Black" SelectionHighlightColor="#FFF76161" HorizontalAlignment="Left" Width="271" Height="40" VerticalAlignment="Top"/>
+
         <Button Content="Diagnosticar Paciente" Margin="750,60,0,0" VerticalAlignment="Top" FontSize="25" Click="Button_Click_1" Width="265" Height="51"/>
+        <ListView x:Name="citas_list" Margin="0,190,68,55"
+                  SelectionMode="Single"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.IsVerticalRailEnabled="True"
+                  ScrollViewer.VerticalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.IsHorizontalRailEnabled="True"  FontSize="20" HorizontalAlignment="Right" Width="717">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Height="45"  >
+                        <TextBlock Text="ID" Margin="8,0" Width="100" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Hora" Width="300" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Paciente" Width="300" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+        </ListView>
     </Grid>
 </Page>
