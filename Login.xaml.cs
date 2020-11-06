@@ -56,8 +56,8 @@ namespace ProyectoPrograIV
         private void cargar_Btn_Click(object sender, RoutedEventArgs e)
         {
             Sesion.Mail = nombre.Text;
-            string comandoMedico = $"select * from medico where email='{nombre.Text}' and contrasena='{contraseña_txt.Password}'";
-            string comandoUsuario = $"select * from usersxd where email='{nombre.Text}' and password='{contraseña_txt.Password}'";
+            string comandoMedico = $"select * from medico where BINARY email='{nombre.Text}' and BINARY contrasena='{contraseña_txt.Password}'";
+            string comandoUsuario = $"select * from usersxd where BINARY email='{nombre.Text}' and BINARY password='{contraseña_txt.Password}'";
             baseDatos.Open();
             try
             {

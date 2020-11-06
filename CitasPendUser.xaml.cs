@@ -53,7 +53,7 @@ namespace ProyectoPrograIV
             }
             baseDatos.Close();
             baseDatos.Open();
-            string comando2 = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
+            string comando2 = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
             try
             {
                 MySqlCommand cmd2 = db.CommandDB(comando2, baseDatos);
