@@ -126,9 +126,6 @@
     <Compile Include="Diagnostico.xaml.cs">
       <DependentUpon>Diagnostico.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pago.xaml.cs">
-      <DependentUpon>Pago.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CitasPendUser.xaml.cs">
       <DependentUpon>CitasPendUser.xaml</DependentUpon>
     </Compile>
@@ -218,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Diagnostico.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pago.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
