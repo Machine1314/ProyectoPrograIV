@@ -26,24 +26,24 @@ namespace ProyectoPrograIV
     /// </summary>
     public sealed partial class BlankPage3 : Page
     {
-        private static DataBase db = new DataBase();
-        private MySqlConnection baseDatos = db.ConectionDB();
+
+       
         public BlankPage3()
         {
             this.InitializeComponent();
             hora_picker.MinuteIncrement = 30;
             //especialidades
-            baseDatos.Open();
+            DataBase.Db.Open();
             string comando = $"select nombre from especialidad";
-            MySqlCommand cmd = db.CommandDB(comando, baseDatos);
+            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             while (mysqlread.Read())
             {
                 especialidad_lista.Items.Add(mysqlread.GetString(0));
             }
-            baseDatos.Close();
+            DataBase.Db.Close();
             //doctores
-      
+
 
         }
         private async void DisplayDialog(string titulo, string contenido)
@@ -62,20 +62,19 @@ namespace ProyectoPrograIV
         private void especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             doctor_lista.Items.Clear();
-            baseDatos.Open();
+            DataBase.Db.Open();
             string comando = $"select nombre, apellido, id_medico from medico where id_especialidad=(select id_especialidad from especialidad where nombre='{especialidad_lista.SelectedValue}')";
-            MySqlCommand cmd = db.CommandDB(comando, baseDatos);
+            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             while (mysqlread.Read())
             {
                 string objeto = $"{mysqlread.GetString(0)} {mysqlread.GetString(1)} {int.Parse(mysqlread.GetString(2))}";
                 doctor_lista.Items.Add(objeto);
             }
-            baseDatos.Close();
+            DataBase.Db.Close();
 
         }
-        //Mateo
-        //Metodo que actualizara los limites de hora segun el doctor
+
         private void doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string phrase = doctor_lista.SelectedValue.ToString();
@@ -85,7 +84,7 @@ namespace ProyectoPrograIV
 
         private void regresar_btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(BlankPage1), id_user.Text);
+            this.Frame.Navigate(typeof(BlankPage1));
         }
 
         private void Agendar_btn_Click(object sender, RoutedEventArgs e)
@@ -104,11 +103,12 @@ namespace ProyectoPrograIV
                 int hora, minuto;
                 hora = hora_picker.SelectedTime.Value.Hours;
                 minuto = hora_picker.SelectedTime.Value.Minutes;
-                baseDatos.Open();
+                DataBase.Db.Open();
                 try
                 {
-                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ((select user_id from usersxd where email='{Sesion.Mail}'), {Sesion.Id_medico}, '{año}-{dia}-{mes}', '{hora}:{minuto}')";
-                    MySqlCommand cmd = db.CommandDB(comando, baseDatos);
+                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ({Sesion.Id_user}, {Sesion.Id_medico}, '{año}-{mes}-{dia}', '{hora}:{minuto}')";
+                    Debug.WriteLine(comando);
+                    MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -117,7 +117,7 @@ namespace ProyectoPrograIV
                     DisplayDialog("Error", mse.Message);
                 }
 
-                baseDatos.Close();
+                DataBase.Db.Close();
                 this.Frame.Navigate(typeof(BlankPage1));
             }
 

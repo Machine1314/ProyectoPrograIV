@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,6 +27,15 @@ namespace ProyectoPrograIV
         public BlankPage5()
         {
             this.InitializeComponent();
+            DataBase.Db.Open();
+            string comando = $"select nombre from especialidad";
+            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (mysqlread.Read())
+            {
+                procedimiento_list.Items.Add(mysqlread.GetString(0));
+            }
+            DataBase.Db.Close();
         }
 
         private void cobrar_Click(object sender, RoutedEventArgs e)

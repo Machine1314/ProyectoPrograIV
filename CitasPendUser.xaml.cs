@@ -28,18 +28,14 @@ namespace ProyectoPrograIV
     /// </summary>
     public sealed partial class BlankPage1 : Page
     {
-        private static DataBase db = new DataBase();
-        private MySqlConnection baseDatos = db.ConectionDB();
+ 
   
         public BlankPage1()
         {
-            CultureInfo provider = CultureInfo.InvariantCulture;
             this.InitializeComponent();
-            
-            Debug.WriteLine("Mail:" + Sesion.Mail);
-            baseDatos.Open();
+            DataBase.Db.Open();
             String comando = $"select name from usersxd where email='{Sesion.Mail}'";
-            MySqlCommand cmd = db.CommandDB(comando, baseDatos);
+            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (mysqlread.Read())
             {
@@ -51,18 +47,20 @@ namespace ProyectoPrograIV
             {
                 txt_bnd.Text = "Bienvenido Sin Parametro";
             }
-            baseDatos.Close();
-            baseDatos.Open();
+            DataBase.Db.Close();
+            DataBase.Db.Open();
             string comando2 = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
             try
             {
-                MySqlCommand cmd2 = db.CommandDB(comando2, baseDatos);
+                MySqlCommand cmd2 = DataBase.CommandDB(comando2, DataBase.Db);
                 MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
                 while (mysqlread2.Read())
                 {
-                    TextBlock textoBlock = new TextBlock();
-                    textoBlock.Text = $@"{mysqlread2.GetString(0)}          {mysqlread2.GetString(1)}          {mysqlread2.GetMySqlDateTime(2)}       {mysqlread2.GetString(3)} {mysqlread2.GetString(4)}";
-                    textoBlock.FontSize = 32;
+                    TextBlock textoBlock = new TextBlock
+                    {
+                        Text = $@"{mysqlread2.GetString(0)}          {mysqlread2.GetString(1)}          {mysqlread2.GetMySqlDateTime(2)}       {mysqlread2.GetString(3)} {mysqlread2.GetString(4)}",
+                        FontSize = 32
+                    };
                     citas_list.Items.Add(textoBlock);
                 }
             }
@@ -73,7 +71,7 @@ namespace ProyectoPrograIV
                 DisplayDialog("Error", mse.Message);
             }
 
-            baseDatos.Close();
+            DataBase.Db.Close();
 
 
         }     

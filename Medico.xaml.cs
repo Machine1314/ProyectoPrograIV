@@ -28,14 +28,12 @@ namespace ProyectoPrograIV
     public sealed partial class BlankPage6 : Page
     {
 
-        private static DataBase db = new DataBase();
-        private MySqlConnection baseDatos = db.ConectionDB();
         public BlankPage6()
         {
             this.InitializeComponent();
-            baseDatos.Open();
+            DataBase.Db.Open();
             String comando = $"select nombre, apellido, id_medico from medico where email='{Sesion.Mail}'";
-            MySqlCommand cmd = db.CommandDB(comando, baseDatos);
+            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (mysqlread.Read())
             {
@@ -46,7 +44,7 @@ namespace ProyectoPrograIV
             {
                 saludoMsg.Text = "Bienvenido";
             }
-            baseDatos.Close();
+            DataBase.Db.Close();
 
         }
  
@@ -66,10 +64,10 @@ namespace ProyectoPrograIV
             string comandoCita = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
                 $"and id_medico={Sesion.Id_medico}";
 
-            baseDatos.Open();
+            DataBase.Db.Open();
             try
             {
-                MySqlCommand cmd = db.CommandDB(comandoCita, baseDatos);
+                MySqlCommand cmd = DataBase.CommandDB(comandoCita, DataBase.Db);
                 MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 if (mysqlread.Read())
                 {
@@ -92,9 +90,9 @@ namespace ProyectoPrograIV
             {
                 DisplayDialog("Error", mse.Message);
             }
-           
-           
-            baseDatos.Close();
+
+
+            DataBase.Db.Close();
         }
         private async void DisplayDialog(string titulo, string contenido)
         {

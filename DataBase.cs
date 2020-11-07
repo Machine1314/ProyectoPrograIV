@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace ProyectoPrograIV
 {
-    class DataBase
+    public class DataBase
     {
- 
-      
-        
-        public MySqlConnection ConectionDB()
+
+        public static readonly MySqlConnection Db = ConectionDB();
+
+
+
+        private static MySqlConnection ConectionDB()
         {
             try
             {
@@ -26,7 +28,7 @@ namespace ProyectoPrograIV
             }
 
         }
-        public  MySqlCommand CommandDB(string comando, MySqlConnection conexion)
+        public static MySqlCommand CommandDB(string comando, MySqlConnection conexion)
         {
            
             try

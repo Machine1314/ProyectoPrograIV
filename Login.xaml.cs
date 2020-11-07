@@ -33,13 +33,7 @@ namespace ProyectoPrograIV
         public MainPage()
         {
             this.InitializeComponent();
-    
         }
-        private static DataBase db = new DataBase();
-        private MySqlConnection baseDatos = db.ConectionDB();
-        
-        
-
         private async void DisplayDialog(string titulo, string contenido)
         {
             ContentDialog noWifiDialog = new ContentDialog
@@ -53,22 +47,24 @@ namespace ProyectoPrograIV
         }
         //Botones
         //Este metodo ingresa informacion a la base de datos
-        private void cargar_Btn_Click(object sender, RoutedEventArgs e)
+        private void Login_Btn_Click(object sender, RoutedEventArgs e)
         {
             Sesion.Mail = nombre.Text;
             string comandoMedico = $"select * from medico where BINARY email='{nombre.Text}' and BINARY contrasena='{contraseña_txt.Password}'";
             string comandoUsuario = $"select * from usersxd where BINARY email='{nombre.Text}' and BINARY password='{contraseña_txt.Password}'";
-            baseDatos.Open();
+            DataBase.Db.Open();
             try
             {
                 if (nombre.Text.Contains("@to-do/list.com"))
                 {
-                    MySqlCommand cmd2 = db.CommandDB(comandoMedico, baseDatos);
+                    MySqlCommand cmd2 = DataBase.CommandDB(comandoMedico, DataBase.Db);
                     MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
                     if (mysqlread2.Read())
                     {
+                       
                         Sesion.Id_medico = int.Parse(mysqlread2.GetString(0));
-                            this.Frame.Navigate(typeof(BlankPage6));
+                        DataBase.Db.Close();
+                        this.Frame.Navigate(typeof(BlankPage6));
                     }
                     else
                     {
@@ -77,18 +73,21 @@ namespace ProyectoPrograIV
                 }
                 else
                 {
-                    MySqlCommand cmd = db.CommandDB(comandoUsuario, baseDatos);
+                    MySqlCommand cmd = DataBase.CommandDB(comandoUsuario, DataBase.Db);
                     MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                     if (mysqlread.Read())
                     {
-                            this.Frame.Navigate(typeof(BlankPage1));
+                        
+                        Sesion.Id_user = int.Parse(mysqlread.GetString(0));
+                        DataBase.Db.Close();
+                        this.Frame.Navigate(typeof(BlankPage1));
                     }
                     else
                     {
                         DisplayDialog("Contraseña incorrecta", "Ingreso de nuevo");
                     }
                 }
-                baseDatos.Close();
+                DataBase.Db.Close();
             }
             catch (MySqlException mse)
             {
@@ -96,9 +95,6 @@ namespace ProyectoPrograIV
             }
            
         }
-       
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage2));

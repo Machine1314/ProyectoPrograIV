@@ -30,8 +30,7 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
-        private static DataBase db = new DataBase();
-        private MySqlConnection baseDatos = db.ConectionDB();
+
         private async void DisplayDialog(string titulo, string contenido)
         {
             ContentDialog noWifiDialog = new ContentDialog
@@ -62,17 +61,17 @@ namespace ProyectoPrograIV
                 String comprobacion = $"SELECT email, cedula from usersxd where email='{correo_input.Text}' AND cedula={Int64.Parse(cedula_input.Text)}";
                 try
                 {
-                    baseDatos.Open();
-                    MySqlCommand cmd2 = db.CommandDB(comprobacion, baseDatos);
+                    DataBase.Db.Open();
+                    MySqlCommand cmd2 = DataBase.CommandDB(comprobacion, DataBase.Db);
                     MySqlDataReader mysqlread = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
                     if (mysqlread.Read())
                     {
-                        baseDatos.Close();
+                        DataBase.Db.Close();
                         DisplayDialog("Error", "Datos ingresados previamente.");
                     }
                     else
                     {
-                        baseDatos.Close();
+                        DataBase.Db.Close();
                         if (confContra_input.Text.Equals(contra_input.Text))
                         {
                             String comando = $"INSERT INTO usersxd (name, email, password, cedula, celular, edad) values ('{nombre_input.Text}','{correo_input.Text}'" +
@@ -80,13 +79,13 @@ namespace ProyectoPrograIV
 
                             try
                             {
-                                baseDatos.Open();
-                                MySqlCommand cmd = db.CommandDB(comando, baseDatos);
+                                DataBase.Db.Open();
+                                MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                                 cmd.ExecuteNonQuery();
                                 DisplayDialog("Exito", "Cuenta creada con exito.");
-                                baseDatos.Close();
+                                DataBase.Db.Close();
                             }
-                            catch (MySqlException mse)
+                            catch (MySqlException)
                             {
                                 DisplayDialog("Error", "Datos no ingresados");
                             }

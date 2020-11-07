@@ -15,11 +15,12 @@
         <TextBlock HorizontalAlignment="Left" Margin="279,200,0,0" Text="ID  de la cita " TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" />
         <TextBox HorizontalAlignment="Left" Margin="653,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="407" FontSize="25" Height="40"/>
         <TextBlock HorizontalAlignment="Left" Margin="279,268,0,0" Text="Procedimiento realizado" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
-        <ComboBox Margin="653,276,0,0" Width="407" Height="40"/>
-        <TextBlock HorizontalAlignment="Left" Margin="795,440,0,0" Text="Valor Cita" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
-        <TextBlock HorizontalAlignment="Left" Margin="741,495,0,0" Text="Total a cobrar" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <ComboBox x:Name="procedimiento_list" Margin="653,276,0,0" Width="407" Height="40" FontSize="25"/>
+        <TextBlock x:Name="valor_Cita" HorizontalAlignment="Left" Margin="795,440,0,0" Text="Valor Cita" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock x:Name="total_a_pagar" HorizontalAlignment="Left" Margin="741,540,0,0" Text="Total a cobrar" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
         <Button x:Name="cobrar" Content="Cobrar" Margin="516,615,0,0" VerticalAlignment="Top" FontSize="30" Height="68" Width="273" Click="cobrar_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="653,380,0,0" Text="Valor Procedimiento" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock x:Name="valor_Procedimiento" HorizontalAlignment="Left" Margin="653,380,0,0" Text="Valor Procedimiento" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock x:Name="iva" HorizontalAlignment="Left" Margin="876,495,0,0" Text="IVA" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
     </Grid>
 </Page>
