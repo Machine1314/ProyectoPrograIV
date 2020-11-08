@@ -12,7 +12,7 @@
 
     <Grid>
         <Rectangle Height="570" Margin="0,122,45,0" Stroke="#FF0E0000" VerticalAlignment="Top" Width="881" StrokeThickness="5" HorizontalAlignment="Right"/>
-        <TextBlock x:Name="txt_citas"  Margin="0,148,506,523" Text="Citas Pendientes:" TextWrapping="Wrap" Width="338" FontSize="35" HorizontalAlignment="Right"/>
+        <TextBlock x:Name="txt_citas"  Margin="0,148,562,523" Text="Citas Pendientes:" TextWrapping="Wrap" Width="338" FontSize="35" HorizontalAlignment="Right"/>
         <TextBlock x:Name="txt_bnd" TextWrapping="Wrap" Margin="75,31,384,610" FontSize="40" FocusVisualSecondaryBrush="#999D3E3E" FocusVisualPrimaryBrush="#FF9C5555" FontWeight="Bold"><Run/><LineBreak/><Run/></TextBlock>
         <Button x:Name="NuevaCita_btn" Content="Agendar Nueva Cita" Margin="25,348,955,277" VerticalAlignment="Stretch" FontSize="30" Click="NuevaCita_btn_Click" FocusVisualSecondaryBrush="#993484B4" Background="#33267B90" HorizontalAlignment="Stretch"/>
 
@@ -20,24 +20,50 @@
         <Button x:Name="cerrar" Content="Cerrar Sesión" Height="73" Margin="0,22,35,0" VerticalAlignment="Top" Width="150" Click="Button_Click" Foreground="Black" FocusVisualSecondaryBrush="#99101110" BorderBrush="#FF084035" Background="#332FEAFC" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
         <TextBlock x:Name="id_user" HorizontalAlignment="Left" Margin="75,231,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Collapsed"/>
 
-        <ListView x:Name="citas_list" Margin="0,225,73,55"
+        <ListView x:Name="Lista" Margin="0,230,75,0"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
                   ScrollViewer.VerticalScrollMode="Enabled"
                   ScrollViewer.HorizontalScrollMode="Enabled"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.IsHorizontalRailEnabled="True"  FontSize="20" HorizontalAlignment="Right" Width="825">
+                  ScrollViewer.IsHorizontalRailEnabled="True"  FontSize="20" HorizontalAlignment="Right" Width="825" Foreground="#FF4E4141" Height="435" VerticalAlignment="Top">
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="45"  >
                         <TextBlock Text="ID" Margin="8,0" Width="100" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
-                        <TextBlock Text="Hora" Width="206" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
-                        <TextBlock Text="Fecha" Width="221" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Hora" Width="200" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Fecha" Width="220" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
                         <TextBlock Text="Medico" Width="300" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Cita">
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Name="ItemId"
+                                    Text="{x:Bind Id_cita1}"
+                                    Width="100"
+                                   Foreground="WhiteSmoke"
+                                   FontSize="35"
+                                 />
+                        <TextBlock Name="ItemName"
+                                    Text="{x:Bind Tiempo1}"
+                                    Width="200" 
+                                   Foreground="WhiteSmoke"
+                                   FontSize="35"/>
+                        <TextBlock Text="{x:Bind Fecha1}"
+                                   Width="220" 
+                                   Foreground="WhiteSmoke"
+                                   FontSize="35"/>
+                        <TextBlock Text="{x:Bind Nombre_Medico1}"
+                                   Width="300" 
+                                   Foreground="WhiteSmoke"
+                                   FontSize="35"/>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Page>

@@ -2,6 +2,7 @@
 using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -59,7 +60,7 @@ namespace ProyectoPrograIV
         }
         
   
-        private void especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             doctor_lista.Items.Clear();
             DataBase.Db.Open();
@@ -75,14 +76,14 @@ namespace ProyectoPrograIV
 
         }
 
-        private void doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string phrase = doctor_lista.SelectedValue.ToString();
             string[] words = phrase.Split(' ');
             Sesion.Id_medico = int.Parse(words[2]);
         }
 
-        private void regresar_btn_Click(object sender, RoutedEventArgs e)
+        private void Regresar_btn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage1));
         }
@@ -107,7 +108,6 @@ namespace ProyectoPrograIV
                 try
                 {
                     string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ({Sesion.Id_user}, {Sesion.Id_medico}, '{año}-{mes}-{dia}', '{hora}:{minuto}')";
-                    Debug.WriteLine(comando);
                     MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
 
                     cmd.ExecuteNonQuery();
@@ -123,12 +123,12 @@ namespace ProyectoPrograIV
 
         }
 
-        private void fecha_picker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        private void Fecha_picker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
  
         }
 
-        private void hora_picker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
+        private void Hora_picker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
         {
  
         }

@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ProyectoPrograIV;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,6 +34,7 @@ namespace ProyectoPrograIV
         public BlankPage1()
         {
             this.InitializeComponent();
+            Lista.ItemsSource = GetCitas();
             DataBase.Db.Open();
             String comando = $"select name from usersxd where email='{Sesion.Mail}'";
             MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
@@ -48,6 +50,8 @@ namespace ProyectoPrograIV
                 txt_bnd.Text = "Bienvenido Sin Parametro";
             }
             DataBase.Db.Close();
+            
+            /*
             DataBase.Db.Open();
             string comando2 = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
             try
@@ -73,7 +77,7 @@ namespace ProyectoPrograIV
 
             DataBase.Db.Close();
 
-
+            */
         }     
         private async void DisplayDialog(string titulo, string contenido)
         {
@@ -85,6 +89,42 @@ namespace ProyectoPrograIV
             };
 
             ContentDialogResult result = await noWifiDialog.ShowAsync();
+        }
+        public ObservableCollection<Cita> GetCitas()
+        {
+            string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
+
+            var CitasList = new ObservableCollection<Cita>();
+            
+            DataBase.Db.Open();
+
+            try
+            {
+                MySqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
+                MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                while (mysqlread2.Read())
+                {
+                    var CitasInfo = new Cita
+                    {
+                        Id_cita1 = mysqlread2.GetInt32(0),
+                        Tiempo1 = mysqlread2.GetTimeSpan(1),
+                        Fecha1 = mysqlread2.GetMySqlDateTime(2),
+                        Nombre_Medico1 = mysqlread2.GetString(3) + " " + mysqlread2.GetString(4)
+                    };
+                    CitasList.Add(CitasInfo);
+
+                }
+            }
+           
+            catch (MySqlException mse)
+            {
+                DisplayDialog("Error", mse.Message);
+                return null;
+            }
+            DataBase.Db.Close();
+            return CitasList;
+
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cita.cs" />
     <Compile Include="Sesion.cs" />
     <Compile Include="Medico.xaml.cs">
       <DependentUpon>Medico.xaml</DependentUpon>
