@@ -2,6 +2,7 @@
 using Renci.SshNet.Messages;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -31,6 +32,7 @@ namespace ProyectoPrograIV
         public BlankPage6()
         {
             this.InitializeComponent();
+            picker.Date = DateTime.Now;
             DataBase.Db.Open();
             String comando = $"select nombre, apellido, id_medico from medico where email='{Sesion.Mail}'";
             MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
@@ -47,52 +49,50 @@ namespace ProyectoPrograIV
             DataBase.Db.Close();
 
         }
- 
-      
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
-
-        private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        public ObservableCollection<Cita> GetCitas()
         {
-            citas_list.Items.Clear();
             int dia = picker.Date.Value.Day;
             int anio = picker.Date.Value.Year;
             int mes = picker.Date.Value.Month;
-            Debug.WriteLine(anio + ":" + mes + ":" + dia );
-            string comandoCita = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
-                $"and id_medico={Sesion.Id_medico}";
+            string GetCitas = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
+             $"and id_medico={Sesion.Id_medico}";
+
+            var CitasList = new ObservableCollection<Cita>();
 
             DataBase.Db.Open();
+
             try
             {
-                MySqlCommand cmd = DataBase.CommandDB(comandoCita, DataBase.Db);
-                MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                if (mysqlread.Read())
+                MySqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
+                MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                while (mysqlread2.Read())
                 {
-                    while (mysqlread.Read())
+                    var CitasInfo = new Cita
                     {
-                        TextBlock textoBlock = new TextBlock();
-                        textoBlock.Text = $@"{mysqlread.GetString(0)}          {mysqlread.GetString(2)}                    {mysqlread.GetString(1)}";
-                        textoBlock.FontSize = 32;
-                        citas_list.Items.Add(textoBlock);
-                    }
+                        Id_cita1 = mysqlread2.GetInt32(0),
+                        Tiempo1 = mysqlread2.GetTimeSpan(2),
+                        Nombre_Usuario1 = mysqlread2.GetString(1)
+                    };
+                    CitasList.Add(CitasInfo);
                 }
-                else
-                {
-                    TextBlock textoBlock = new TextBlock();
-                    textoBlock.FontSize = 32;
-                    textoBlock.Text = "Sin citas para la fecha ingresada";
-                    citas_list.Items.Add(textoBlock);
-                }
-            }catch(MySqlException mse)
+            }
+            catch (MySqlException mse)
             {
                 DisplayDialog("Error", mse.Message);
+                return null;
             }
-
-
-            DataBase.Db.Close();
+                DataBase.Db.Close();
+                return CitasList;
+            }
+        private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        {
+            Lista.ItemsSource = GetCitas();
         }
         private async void DisplayDialog(string titulo, string contenido)
         {

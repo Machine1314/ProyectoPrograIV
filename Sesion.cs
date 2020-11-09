@@ -16,5 +16,6 @@ namespace ProyectoPrograIV
         public static int Id_cita { get; set; }
         public static int Id_medico { get; set; }
         public static int Id_especialidad { get; set; }
+        public static int Id_Procedimiento { get; set; }
     }
 }
