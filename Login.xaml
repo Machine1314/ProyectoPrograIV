@@ -12,12 +12,12 @@
 
     <Grid>
         <HyperlinkButton Content="¿No tienes cuenta?"
-                 Click="Button_Click" Margin="561,595,544,85" VerticalAlignment="Stretch" FontWeight="Bold" FontStyle="Italic" FontSize="20" RenderTransformOrigin="0.281,0.455" Foreground="#FFD1E7EB" HorizontalAlignment="Stretch" />
+                 Click="Button_Click" Margin="561,595,544,85" VerticalAlignment="Bottom" FontWeight="Bold" FontStyle="Italic" FontSize="20" RenderTransformOrigin="0.281,0.455" Foreground="#FFD1E7EB" HorizontalAlignment="Stretch" />
         <TextBlock x:Name="Enunciado2"  Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  Height="76" FontSize="60" Foreground="White" FontFamily="Verdana" HorizontalAlignment="Center" Width="411"><Run Text="TO-DO/"/><Run Text="LIST"/></TextBlock>
         <TextBox x:Name="nombre" Margin="0,355,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="46" FontSize="20" HorizontalAlignment="Center" Width="404" PlaceholderText="Usuario"/>
         <Button x:Name="Login_Btn" Content="Ingresar" Margin="0,511,0,0" VerticalAlignment="Top" Click="Login_Btn_Click" FontSize="30" BorderBrush="Black" Background="#33FFFFFF" FocusVisualPrimaryBrush="#FF0096FF" Foreground="White" FocusVisualSecondaryBrush="#99537A57" Height="54" HorizontalAlignment="Center" Width="403" />
         <PasswordBox x:Name="contraseña_txt" Margin="0,430,0,0" VerticalAlignment="Top" Height="46" FontSize="20" HorizontalAlignment="Center" Width="404" PlaceholderText="Contraseña"/>
         <Image x:Name="login_img" Margin="526,125,525,0" Source="/Assets/StoreLogo.scale-400.png" VerticalAlignment="Top" Height="195" HorizontalAlignment="Center"/>
-        <HyperlinkButton x:Name="Olvido_Contrasena" Content="Olvidé mi contraseña" Margin="549,655,532,25" VerticalAlignment="Stretch" FontSize="20" FontWeight="Bold" FontStyle="Normal" Click="HyperlinkButton_Click" Visibility="Visible" Foreground="#FFD1E7EB" HorizontalAlignment="Stretch"/>
+        <HyperlinkButton x:Name="Olvido_Contrasena" Content="Olvidé mi contraseña" Margin="549,655,532,25" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" FontStyle="Normal" Click="HyperlinkButton_Click" Visibility="Visible" Foreground="#FFD1E7EB" HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

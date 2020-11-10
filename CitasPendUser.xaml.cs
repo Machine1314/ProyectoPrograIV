@@ -65,7 +65,7 @@ namespace ProyectoPrograIV
         }
         public ObservableCollection<Cita> GetCitas()
         {
-            string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}')";
+            string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}') AND pagado=0";
 
             var CitasList = new ObservableCollection<Cita>();
             

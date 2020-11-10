@@ -120,6 +120,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cita.cs" />
+    <Compile Include="Clave.xaml.cs">
+      <DependentUpon>Clave.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recovery.xaml.cs">
       <DependentUpon>Recovery.xaml</DependentUpon>
     </Compile>
@@ -214,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Clave.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Medico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

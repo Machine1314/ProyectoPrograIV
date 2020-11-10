@@ -60,7 +60,7 @@ namespace ProyectoPrograIV
             int dia = picker.Date.Value.Day;
             int anio = picker.Date.Value.Year;
             int mes = picker.Date.Value.Month;
-            string GetCitas = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' " +
+            string GetCitas = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' and pagado=0 " +
              $"and id_medico={Sesion.Id_medico}";
 
             var CitasList = new ObservableCollection<Cita>();

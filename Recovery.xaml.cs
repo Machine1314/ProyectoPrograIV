@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -35,26 +36,37 @@ namespace ProyectoPrograIV
             {
                 this.Frame.Navigate(typeof(BlankPage1));
             }
-            else if(Sesion.Id_medico != 0)
-            {
-                this.Frame.Navigate(typeof(BlankPage6));
-            }
             else
             {
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
+        private async void DisplayDialog(string titulo, string contenido)
+        {
+            ContentDialog noWifiDialog = new ContentDialog
+            {
+                Title = titulo,
+                Content = contenido,
+                CloseButtonText = "Ok"
+            };
 
+            _ = await noWifiDialog.ShowAsync();
+        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             DataBase.Db.Open();
-            string comando = $"select * from preguntas where id_usuario=(select user_id from usersxd where emmail='{Correo.Text}') AND pregunta1='{Respuesta1}'" +
+            Sesion.Mail = Correo.Text;
+            string comando = $"select * from preguntas where id_usuario=(select user_id from usersxd where email='{Correo.Text}') AND pregunta1='{Respuesta1.Text}'" +
                 $"AND pregunta2='{Respuesta2.Text}' AND pregunta3='{Respuesta3.Text}'";
             MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
             MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (mysqlread.Read())
             {
-               
+                this.Frame.Navigate(typeof(Clave));
+            }
+            else
+            {
+                DisplayDialog("Error","Respuestas Erroneas");
             }
             DataBase.Db.Close();
         }

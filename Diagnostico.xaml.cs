@@ -46,10 +46,9 @@ namespace ProyectoPrograIV
                 Content = contenido,
                 CloseButtonText = "Ok"
             };
-
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            _ = await noWifiDialog.ShowAsync();
         }
-        private void cobrar_Click(object sender, RoutedEventArgs e)
+        private void Cobrar_Click(object sender, RoutedEventArgs e)
         {
             if (id_cita.Text == "")
             {
@@ -58,7 +57,8 @@ namespace ProyectoPrograIV
             else
             {
                 DataBase.Db.Open();
-                string comando = $"insert into pagos(id_cita, id_procedimiento, valor_total) values({int.Parse(id_cita.Text)}, {Sesion.Id_Procedimiento}, {float.Parse(Total_Pago.Text)})";
+                string comando = $"insert into pagos(id_cita, id_procedimiento, valor_total) values({int.Parse(id_cita.Text)}, {Sesion.Id_Procedimiento}, {float.Parse(Total_Pago.Text)});" +
+                    $"update citas set pagado=1 where id_cita={int.Parse(id_cita.Text)} ";
                 MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                 cmd.ExecuteNonQuery();
                 DataBase.Db.Close();
@@ -86,6 +86,11 @@ namespace ProyectoPrograIV
                 Total_Pago.Text = TotalPago.ToString();
             }
             DataBase.Db.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(BlankPage6));
         }
     }
 }
