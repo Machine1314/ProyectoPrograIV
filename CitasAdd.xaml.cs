@@ -62,7 +62,9 @@ namespace ProyectoPrograIV
   
         private void Especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            doctor_lista.SelectedValue = null;
             doctor_lista.Items.Clear();
+
             DataBase.Db.Open();
             string comando = $"select nombre, apellido, id_medico from medico where id_especialidad=(select id_especialidad from especialidad where nombre='{especialidad_lista.SelectedValue}')";
             MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
@@ -78,9 +80,13 @@ namespace ProyectoPrograIV
 
         private void Doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string phrase = doctor_lista.SelectedValue.ToString();
-            string[] words = phrase.Split(' ');
-            Sesion.Id_medico = int.Parse(words[2]);
+                string phrase = doctor_lista.SelectedValue?.ToString();
+            if (phrase != null)
+            {
+                string[] words = phrase.Split(' ');
+                Sesion.Id_medico = int.Parse(words[2]);
+            }
+        
         }
 
         private void Regresar_btn_Click(object sender, RoutedEventArgs e)
