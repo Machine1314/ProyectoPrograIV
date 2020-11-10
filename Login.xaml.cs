@@ -42,8 +42,7 @@ namespace ProyectoPrograIV
                 Content = contenido,
                 CloseButtonText = "Ok"
             };
-
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            _ = await noWifiDialog.ShowAsync();
         }
         //Botones
         //Este metodo ingresa informacion a la base de datos
@@ -84,7 +83,7 @@ namespace ProyectoPrograIV
                     }
                     else
                     {
-                        DisplayDialog("Contraseña incorrecta", "Ingreso de nuevo");
+                        DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
                     }
                 }
                 DataBase.Db.Close();
@@ -98,6 +97,11 @@ namespace ProyectoPrograIV
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage2));
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Recovery));
         }
     }
 }

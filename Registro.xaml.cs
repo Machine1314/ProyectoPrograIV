@@ -75,7 +75,8 @@ namespace ProyectoPrograIV
                         if (confContra_input.Text.Equals(contra_input.Text))
                         {
                             String comando = $"INSERT INTO usersxd (name, email, password, cedula, celular, edad) values ('{nombre_input.Text}','{correo_input.Text}'" +
-                            $",'{contra_input.Text}','{ Int64.Parse(cedula_input.Text)}','{Int64.Parse(cel_input.Text)}', '{ Int64.Parse(edad_input.Text) }')";
+                            $",'{contra_input.Text}','{ Int64.Parse(cedula_input.Text)}','{Int64.Parse(cel_input.Text)}', '{ Int64.Parse(edad_input.Text) }');" +
+                            $"INSERT INTO preguntas(id_usuario, pregunta1, pregunta2, pregunta3) values ((select user_id from usersxd where email='{correo_input.Text}'), '{Pregunta1.Text}','{Pregunta2.Text}', '{Pregunta3.Text}') ";
 
                             try
                             {
@@ -85,9 +86,9 @@ namespace ProyectoPrograIV
                                 DisplayDialog("Exito", "Cuenta creada con exito.");
                                 DataBase.Db.Close();
                             }
-                            catch (MySqlException)
+                            catch (MySqlException mse)
                             {
-                                DisplayDialog("Error", "Datos no ingresados");
+                                DisplayDialog("Error", mse.Message);
                             }
 
                             this.Frame.Navigate(typeof(MainPage));

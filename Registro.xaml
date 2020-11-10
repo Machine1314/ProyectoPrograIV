@@ -11,27 +11,26 @@
     </Page.Background>
 
     <Grid>
-        <Button Content="Guardar y Continuar" Margin="640,594,0,0" VerticalAlignment="Top" FontSize="30" Click="Button_Click_1" Foreground="White">
+        <Button Content="Crear Cuenta" Margin="702,447,0,0" VerticalAlignment="Top" FontSize="30" Click="Button_Click_1" Foreground="White" FontFamily="Verdana" Width="473">
             <Button.FocusVisualPrimaryBrush>
                 <ImageBrush/>
             </Button.FocusVisualPrimaryBrush>
         </Button>
-        <Button Content="Cancelar" Margin="391,594,0,0" VerticalAlignment="Top" FontSize="30" Click="Button_Click" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="120,137,0,0" Text="Nombre" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
-        <TextBlock HorizontalAlignment="Left" Margin="333,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="50" Width="672"><Run Text="Re"/><Run Text="gi"/><Run Text="stro de nuev"/><Run Text="o u"/><Run Text="suario"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="120,300,0,0" Text="Edad" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" Height="40"/>
-        <TextBlock HorizontalAlignment="Left" Margin="747,145,0,0" Text="Contraseña" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
-        <TextBlock HorizontalAlignment="Left" Margin="747,422,0,0" Text="Correo" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
-        <TextBlock HorizontalAlignment="Left" Margin="239,301,0,0" Text="Celular o teléfono" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
-        <TextBlock HorizontalAlignment="Left" Margin="745,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" Height="40"><Run Text="Confirmación de contra"/><Run Text="s"/><Run Text="eña"/></TextBlock>
-        <TextBox x:Name="nombre_input" HorizontalAlignment="Left" Margin="120,220,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="405" FontSize="25"/>
-        <TextBox x:Name="edad_input" HorizontalAlignment="Left" Margin="120,348,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="109" FontSize="25"/>
-        <TextBox x:Name="correo_input" HorizontalAlignment="Left" Margin="747,488,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="374" FontSize="25"/>
-        <TextBox x:Name="contra_input" HorizontalAlignment="Left" Margin="746,220,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="374" FontSize="25"/>
-        <TextBox x:Name="confContra_input" HorizontalAlignment="Left" Margin="746,349,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="375" FontSize="25"/>
-        <TextBox x:Name="cel_input" HorizontalAlignment="Left" Margin="240,349,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Height="45" FontSize="25"/>
-        <TextBlock HorizontalAlignment="Left" Margin="120,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="40" FontSize="30"><Run Text="C"/><Run Text="édula"/></TextBlock>
-        <TextBox x:Name="cedula_input" HorizontalAlignment="Left" Margin="121,488,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="404"/>
+        <Button Content="Cancelar" Margin="700,513,0,0" VerticalAlignment="Top" FontSize="30" Click="Button_Click" Foreground="White" FontFamily="Verdana" Width="472"/>
+        <TextBlock HorizontalAlignment="Left" Margin="169,167,0,0" Text="Datos Personales" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontFamily="Verdana"/>
+        <TextBlock HorizontalAlignment="Left" Margin="333,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="50" Width="672" FontFamily="Verdana"><Run Text="Re"/><Run Text="gi"/><Run Text="stro de nuev"/><Run Text="o u"/><Run Text="suario"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="176,479,0,0" Text="Datos de Inicio de Sesión" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontFamily="Verdana"/>
+        <TextBlock HorizontalAlignment="Left" Margin="700,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" Height="40" Text="Preguntas de Seguridad" FontFamily="Verdana"/>
+        <TextBox x:Name="nombre_input" HorizontalAlignment="Left" Margin="168,223,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="405" FontSize="25" PlaceholderText="Nombre" FontFamily="Verdana"/>
+        <TextBox x:Name="edad_input" HorizontalAlignment="Left" Margin="170,283,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="109" FontSize="25" PlaceholderText="Edad" FontFamily="Verdana"/>
+        <TextBox x:Name="correo_input" HorizontalAlignment="Left" Margin="170,400,0,0" Text="" TextWrapping="Wrap" Width="402" FontSize="25" PlaceholderText="Correo Electrónico" FontFamily="Verdana" Height="40" VerticalAlignment="Top"/>
+        <TextBox x:Name="contra_input" HorizontalAlignment="Left" Margin="175,524,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="399" FontSize="25" PlaceholderText="Contraseña" FontFamily="Verdana"/>
+        <TextBox x:Name="confContra_input" HorizontalAlignment="Left" Margin="175,574,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="399" FontSize="25" PlaceholderText="Confirmación de contraseña" FontFamily="Verdana"/>
+        <TextBox x:Name="cel_input" HorizontalAlignment="Left" Margin="289,283,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Height="40" FontSize="25" PlaceholderText="Celular/Teléfono" FontFamily="Verdana"/>
+        <TextBox x:Name="cedula_input" HorizontalAlignment="Left" Margin="170,340,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="404" PlaceholderText="Cédula" FontSize="25" FontFamily="Verdana"/>
+        <TextBox x:Name="Pregunta1" HorizontalAlignment="Left" Margin="702,223,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" PlaceholderText="Nombre de tu primera mascota" Height="40" FontFamily="Verdana" Width="474"/>
+        <TextBox x:Name="Pregunta2" HorizontalAlignment="Left" Margin="702,283,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" PlaceholderText="Ciudad natal" Height="40" FontFamily="Verdana" Width="473"/>
+        <TextBox x:Name="Pregunta3" HorizontalAlignment="Left" Margin="702,340,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" PlaceholderText="Deporte Favorito" Height="40" FontFamily="Verdana" Width="473"/>
 
     </Grid>
 </Page>

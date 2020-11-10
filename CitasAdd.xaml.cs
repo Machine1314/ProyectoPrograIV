@@ -55,8 +55,7 @@ namespace ProyectoPrograIV
                 Content = contenido,
                 CloseButtonText = "Ok"
             };
-
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            _ = await noWifiDialog.ShowAsync();
         }
         
   

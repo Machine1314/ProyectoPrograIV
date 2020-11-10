@@ -102,8 +102,7 @@ namespace ProyectoPrograIV
                 Content = contenido,
                 CloseButtonText = "Ok"
             };
-
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            _ = await noWifiDialog.ShowAsync();
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
