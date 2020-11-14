@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -48,15 +48,15 @@ namespace ProyectoPrograIV
                 if (ConfContraNueva.Password.Equals(ContrasenaNueva.Password))
                 {
                     DataBase.Db.Open();
-                    string comando = $"UPDATE usersxd set password='{ConfContraNueva.Password}' where email='{Sesion.Mail}'";
-                    MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                    string comando = $"UPDATE misc.usersxd set password='{ConfContraNueva.Password}' where email='{Sesion.Mail}'";
+                    SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                     try
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (MySqlException mse)
+                    catch (SqlException se)
                     {
-                        DisplayDialog("Error", mse.Message);
+                        DisplayDialog("Error", se.Message);
                     }
                     this.Frame.Navigate(typeof(MainPage));
                     DataBase.Db.Close();

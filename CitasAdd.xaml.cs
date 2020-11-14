@@ -1,9 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -35,12 +34,12 @@ namespace ProyectoPrograIV
             hora_picker.MinuteIncrement = 30;
             //especialidades
             DataBase.Db.Open();
-            string comando = $"select nombre from especialidad";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            while (mysqlread.Read())
+            string comando = $"select nombre from misc.especialidad";
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (Sqlread.Read())
             {
-                especialidad_lista.Items.Add(mysqlread.GetString(0));
+                especialidad_lista.Items.Add(Sqlread.GetString(0));
             }
             DataBase.Db.Close();
             //doctores
@@ -65,12 +64,12 @@ namespace ProyectoPrograIV
             doctor_lista.Items.Clear();
 
             DataBase.Db.Open();
-            string comando = $"select nombre, apellido, id_medico from medico where id_especialidad=(select id_especialidad from especialidad where nombre='{especialidad_lista.SelectedValue}')";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            while (mysqlread.Read())
+            string comando = $"select nombre, apellido, id_medico from misc.medico where id_especialidad=(select id_especialidad from misc.especialidad where nombre='{especialidad_lista.SelectedValue}')";
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (Sqlread.Read())
             {
-                string objeto = $"{mysqlread.GetString(0)} {mysqlread.GetString(1)} {int.Parse(mysqlread.GetString(2))}";
+                string objeto = $"{Sqlread.GetString(0)} {Sqlread.GetString(1)} {Sqlread.GetInt32(2)}";
                 doctor_lista.Items.Add(objeto);
             }
             DataBase.Db.Close();
@@ -112,12 +111,12 @@ namespace ProyectoPrograIV
                 DataBase.Db.Open();
                 try
                 {
-                    string comando = $"insert into citas(id_usuario, id_medico, fecha, hora) values ({Sesion.Id_user}, {Sesion.Id_medico}, '{año}-{mes}-{dia}', '{hora}:{minuto}')";
-                    MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                    string comando = $"insert into misc.citas(id_usuario, id_medico, fecha, hora) values ({Sesion.Id_user}, {Sesion.Id_medico}, '{año}-{mes}-{dia}', '{hora}:{minuto}')";
+                    SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
 
                     cmd.ExecuteNonQuery();
                 }
-                catch (MySqlException mse)
+                catch (SqlException mse)
                 {
                     DisplayDialog("Error", mse.Message);
                 }

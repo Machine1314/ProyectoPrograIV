@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
@@ -39,8 +39,7 @@ namespace ProyectoPrograIV
                 Content = contenido,
                 CloseButtonText = "Ok"
             };
-
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            _ = await noWifiDialog.ShowAsync();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -58,13 +57,13 @@ namespace ProyectoPrograIV
             }
             else
             {
-                String comprobacion = $"SELECT email, cedula from usersxd where email='{correo_input.Text}' AND cedula={Int64.Parse(cedula_input.Text)}";
+                String comprobacion = $"SELECT email, cedula from misc.usersxd where email='{correo_input.Text}' AND cedula={Int64.Parse(cedula_input.Text)}";
                 try
                 {
                     DataBase.Db.Open();
-                    MySqlCommand cmd2 = DataBase.CommandDB(comprobacion, DataBase.Db);
-                    MySqlDataReader mysqlread = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-                    if (mysqlread.Read())
+                    SqlCommand cmd2 = DataBase.CommandDB(comprobacion, DataBase.Db);
+                    SqlDataReader Sqlread = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                    if (Sqlread.Read())
                     {
                         DataBase.Db.Close();
                         DisplayDialog("Error", "Datos ingresados previamente.");
@@ -74,19 +73,19 @@ namespace ProyectoPrograIV
                         DataBase.Db.Close();
                         if (confContra_input.Text.Equals(contra_input.Text))
                         {
-                            String comando = $"INSERT INTO usersxd (name, email, password, cedula, celular, edad) values ('{nombre_input.Text}','{correo_input.Text}'" +
+                            String comando = $"INSERT INTO misc.usersxd (name, email, password, cedula, celular, edad) values ('{nombre_input.Text}','{correo_input.Text}'" +
                             $",'{contra_input.Text}','{ Int64.Parse(cedula_input.Text)}','{Int64.Parse(cel_input.Text)}', '{ Int64.Parse(edad_input.Text) }');" +
-                            $"INSERT INTO preguntas(id_usuario, pregunta1, pregunta2, pregunta3) values ((select user_id from usersxd where email='{correo_input.Text}'), '{Pregunta1.Text}','{Pregunta2.Text}', '{Pregunta3.Text}') ";
+                            $"INSERT INTO misc.preguntas(id_usuario, pregunta1, pregunta2, pregunta3) values ((select user_id from usersxd where email='{correo_input.Text}'), '{Pregunta1.Text}','{Pregunta2.Text}', '{Pregunta3.Text}') ";
 
                             try
                             {
                                 DataBase.Db.Open();
-                                MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                                SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                                 cmd.ExecuteNonQuery();
                                 DisplayDialog("Exito", "Cuenta creada con exito.");
                                 DataBase.Db.Close();
                             }
-                            catch (MySqlException mse)
+                            catch (SqlException mse)
                             {
                                 DisplayDialog("Error", mse.Message);
                             }
@@ -100,7 +99,7 @@ namespace ProyectoPrograIV
                     }
                     //Fin de la comprobacion
                 }
-                catch (MySqlException mse)
+                catch (SqlException mse)
                 {
                     DisplayDialog("Error", "Un error ocurrio en la aplicacion.\n" + mse.Message
                         );

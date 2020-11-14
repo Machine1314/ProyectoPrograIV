@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -49,19 +49,19 @@ namespace ProyectoPrograIV
         private void Login_Btn_Click(object sender, RoutedEventArgs e)
         {
             Sesion.Mail = nombre.Text;
-            string comandoMedico = $"select * from medico where BINARY email='{nombre.Text}' and BINARY contrasena='{contraseña_txt.Password}'";
-            string comandoUsuario = $"select * from usersxd where BINARY email='{nombre.Text}' and BINARY password='{contraseña_txt.Password}'";
+            string comandoMedico = $"select * from misc.medico where email='{nombre.Text}'  COLLATE Latin1_General_CS_AS  and contrasena='{contraseña_txt.Password}'  COLLATE Latin1_General_CS_AS ";
+            string comandoUsuario = $"select * from misc.usersxd where email='{nombre.Text}'  COLLATE Latin1_General_CS_AS  and password='{contraseña_txt.Password}'  COLLATE Latin1_General_CS_AS ";
             DataBase.Db.Open();
             try
             {
                 if (nombre.Text.Contains("@to-do/list.com"))
                 {
-                    MySqlCommand cmd2 = DataBase.CommandDB(comandoMedico, DataBase.Db);
-                    MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-                    if (mysqlread2.Read())
+                    SqlCommand cmd2 = DataBase.CommandDB(comandoMedico, DataBase.Db);
+                    SqlDataReader Sqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                    if (Sqlread2.Read())
                     {
-                        Sesion.Id_especialidad = mysqlread2.GetInt32(3);
-                        Sesion.Id_medico = int.Parse(mysqlread2.GetString(0));
+                        Sesion.Id_especialidad = Sqlread2.GetInt32(3);
+                        Sesion.Id_medico = Sqlread2.GetInt32(0);
                         DataBase.Db.Close();
                         this.Frame.Navigate(typeof(BlankPage6));
                     }
@@ -72,12 +72,12 @@ namespace ProyectoPrograIV
                 }
                 else
                 {
-                    MySqlCommand cmd = DataBase.CommandDB(comandoUsuario, DataBase.Db);
-                    MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                    if (mysqlread.Read())
+                    SqlCommand cmd = DataBase.CommandDB(comandoUsuario, DataBase.Db);
+                    SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    if (Sqlread.Read())
                     {
                         
-                        Sesion.Id_user = int.Parse(mysqlread.GetString(0));
+                        Sesion.Id_user = Sqlread.GetInt32(0);
                         DataBase.Db.Close();
                         this.Frame.Navigate(typeof(BlankPage1));
                     }
@@ -88,7 +88,7 @@ namespace ProyectoPrograIV
                 }
                 DataBase.Db.Close();
             }
-            catch (MySqlException mse)
+            catch (SqlException mse)
             {
                 DisplayDialog("Error al cargar datos", "Intente de nuevo\nError:" + mse.Message);
             }

@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -56,11 +56,11 @@ namespace ProyectoPrograIV
         {
             DataBase.Db.Open();
             Sesion.Mail = Correo.Text;
-            string comando = $"select * from preguntas where id_usuario=(select user_id from usersxd where email='{Correo.Text}') AND pregunta1='{Respuesta1.Text}'" +
+            string comando = $"select * from misc.preguntas where id_usuario=(select user_id from usersxd where email='{Correo.Text}') AND pregunta1='{Respuesta1.Text}'" +
                 $"AND pregunta2='{Respuesta2.Text}' AND pregunta3='{Respuesta3.Text}'";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            if (mysqlread.Read())
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            if (Sqlread.Read())
             {
                 this.Frame.Navigate(typeof(Clave));
             }

@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -29,12 +29,12 @@ namespace ProyectoPrograIV
             this.InitializeComponent();
 
             DataBase.Db.Open();
-            string comando = $"select nombre from procedimiento where id_especialidad={Sesion.Id_especialidad}";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            while (mysqlread.Read())
+            string comando = $"select nombre from misc.procedimiento where id_especialidad={Sesion.Id_especialidad}";
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (Sqlread.Read())
             {
-                procedimiento_list.Items.Add(mysqlread.GetString(0));
+                procedimiento_list.Items.Add(Sqlread.GetString(0));
             }
             DataBase.Db.Close();
         }
@@ -57,9 +57,9 @@ namespace ProyectoPrograIV
             else
             {
                 DataBase.Db.Open();
-                string comando = $"insert into pagos(id_cita, id_procedimiento, valor_total) values({int.Parse(id_cita.Text)}, {Sesion.Id_Procedimiento}, {float.Parse(Total_Pago.Text)});" +
-                    $"update citas set pagado=1 where id_cita={int.Parse(id_cita.Text)} ";
-                MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                string comando = $"insert into misc.pagos(id_cita, id_procedimiento, valor_total) values({int.Parse(id_cita.Text)}, {Sesion.Id_Procedimiento}, {float.Parse(Total_Pago.Text)});" +
+                    $"update misc.citas set pagado=1 where id_cita={int.Parse(id_cita.Text)} ";
+                SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                 cmd.ExecuteNonQuery();
                 DataBase.Db.Close();
                 this.Frame.Navigate(typeof(BlankPage6));
@@ -69,14 +69,14 @@ namespace ProyectoPrograIV
         private void Procedimiento_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataBase.Db.Open();
-            string comando = $"select precio, id_procedimiento from procedimiento where nombre='{procedimiento_list.SelectedValue}'";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            if (mysqlread.Read())
+            string comando = $"select precio, id_procedimiento from misc.procedimiento where nombre='{procedimiento_list.SelectedValue}'";
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            if (Sqlread.Read())
             {
-                Sesion.Id_Procedimiento = mysqlread.GetInt32(1);
+                Sesion.Id_Procedimiento = Sqlread.GetInt32(1);
                 Valor_Cita.Text = "20";
-                Valor_Procedimiento.Text = mysqlread.GetString(0);
+                Valor_Procedimiento.Text =  Sqlread.GetDecimal(0).ToString();
                 float TotalPago;
                 float ValorCita = float.Parse(Valor_Cita.Text);
                 float ValorProcedimiento = float.Parse(Valor_Procedimiento.Text);

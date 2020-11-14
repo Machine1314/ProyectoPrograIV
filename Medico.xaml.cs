@@ -1,9 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿
 using Renci.SshNet.Messages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -34,13 +35,13 @@ namespace ProyectoPrograIV
             this.InitializeComponent();
             picker.Date = DateTime.Now;
             DataBase.Db.Open();
-            String comando = $"select nombre, apellido, id_medico from medico where email='{Sesion.Mail}'";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            if (mysqlread.Read())
+            String comando = $"select nombre, apellido, id_medico from misc.medico where email='{Sesion.Mail}'";
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            if (Sqlread.Read())
             {
-                saludoMsg.Text = $"Bienvenido, {mysqlread.GetString(0)} {mysqlread.GetString(1)}";
-                Sesion.Id_medico = int.Parse(mysqlread.GetString(2));
+                saludoMsg.Text = $"Bienvenido, {Sqlread.GetString(0)} {Sqlread.GetString(1)}";
+                Sesion.Id_medico = Sqlread.GetInt32(2);
             }
             else
             {
@@ -60,7 +61,7 @@ namespace ProyectoPrograIV
             int dia = picker.Date.Value.Day;
             int anio = picker.Date.Value.Year;
             int mes = picker.Date.Value.Month;
-            string GetCitas = $"select id_cita, us.name, hora from citas join usersxd us where us.user_id=id_usuario and fecha='{anio}-{mes}-{dia}' and pagado=0 " +
+            string GetCitas = $"select id_cita, misc.usersxd.name, hora from misc.citas join misc.usersxd on misc.usersxd.user_id=id_usuario where fecha='{anio}-{mes}-{dia}' and pagado=0 " +
              $"and id_medico={Sesion.Id_medico}";
 
             var CitasList = new ObservableCollection<Cita>();
@@ -69,20 +70,20 @@ namespace ProyectoPrograIV
 
             try
             {
-                MySqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
-                MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-                while (mysqlread2.Read())
+                SqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
+                SqlDataReader Sqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                while (Sqlread2.Read())
                 {
                     var CitasInfo = new Cita
                     {
-                        Id_cita1 = mysqlread2.GetInt32(0),
-                        Tiempo1 = mysqlread2.GetTimeSpan(2),
-                        Nombre_Usuario1 = mysqlread2.GetString(1)
+                        Id_cita1 = Sqlread2.GetInt32(0),
+                        Tiempo1 = Sqlread2.GetTimeSpan(2),
+                        Nombre_Usuario1 = Sqlread2.GetString(1)
                     };
                     CitasList.Add(CitasInfo);
                 }
             }
-            catch (MySqlException mse)
+            catch (SqlException mse)
             {
                 DisplayDialog("Error", mse.Message);
                 return null;

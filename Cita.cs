@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.Types;
+using System.Data.Sql;
+using System.Data.SqlTypes;
 
 namespace ProyectoPrograIV
 {
@@ -15,7 +16,7 @@ namespace ProyectoPrograIV
         int Id_medico;
         string Nombre_Usuario;
         string Nombre_Medico;
-        MySql.Data.Types.MySqlDateTime Fecha;
+        string Fecha;
         TimeSpan Tiempo;
 
         public int Id_cita1 { get => Id_cita; set => Id_cita = value; }
@@ -24,6 +25,6 @@ namespace ProyectoPrograIV
         public string Nombre_Medico1 { get => Nombre_Medico; set => Nombre_Medico = value; }
 
         public TimeSpan Tiempo1 { get => Tiempo; set => Tiempo = value; }
-        public MySqlDateTime Fecha1 { get => Fecha; set => Fecha = value; }
+        public string Fecha1 { get => Fecha; set => Fecha = value; }
     }
 }

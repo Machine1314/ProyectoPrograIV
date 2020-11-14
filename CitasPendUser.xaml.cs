@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Crypto.Tls;
+﻿using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,6 +18,8 @@ using Windows.UI.Xaml.Navigation;
 using ProyectoPrograIV;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,13 +37,13 @@ namespace ProyectoPrograIV
             this.InitializeComponent();
             Lista.ItemsSource = GetCitas();
             DataBase.Db.Open();
-            String comando = $"select name from usersxd where email='{Sesion.Mail}'";
-            MySqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            MySqlDataReader mysqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            if (mysqlread.Read())
+            String comando = $"select name from misc.usersxd where email='{Sesion.Mail}'";
+            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+            SqlDataReader sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            if (sqlread.Read())
             {
 
-                Sesion.Nombre = mysqlread.GetString(0);
+                Sesion.Nombre = sqlread.GetString(0);
                 txt_bnd.Text = $"Bienvenido, {Sesion.Nombre}";
             }
             else
@@ -61,11 +62,14 @@ namespace ProyectoPrograIV
                 CloseButtonText = "Ok"
             };
 
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            _ = await noWifiDialog.ShowAsync();
         }
         public ObservableCollection<Cita> GetCitas()
         {
-            string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from citas join medico on medico.id_medico=citas.id_medico where fecha BETWEEN now() and DATE_ADD(now(), INTERVAL 1 YEAR) and citas.id_usuario = (SELECT user_id from usersxd where email='{Sesion.Mail}') AND pagado=0";
+            string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from misc.citas " +
+                $"join misc.medico on medico.id_medico=citas.id_medico where fecha BETWEEN GETDATE() " +
+                $"and DATEADD(year, 1, GETDATE()) and citas.id_usuario = " +
+                $"(SELECT user_id from misc.usersxd where email='{Sesion.Mail}') AND pagado=0";
 
             var CitasList = new ObservableCollection<Cita>();
             
@@ -73,25 +77,25 @@ namespace ProyectoPrograIV
 
             try
             {
-                MySqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
-                MySqlDataReader mysqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-                while (mysqlread2.Read())
+                SqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
+                SqlDataReader sqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                while (sqlread2.Read())
                 {
                     var CitasInfo = new Cita
                     {
-                        Id_cita1 = mysqlread2.GetInt32(0),
-                        Tiempo1 = mysqlread2.GetTimeSpan(1),
-                        Fecha1 = mysqlread2.GetMySqlDateTime(2),
-                        Nombre_Medico1 = mysqlread2.GetString(3) + " " + mysqlread2.GetString(4)
+                        Id_cita1 = sqlread2.GetInt32(0),
+                        Tiempo1 = sqlread2.GetTimeSpan(1),
+                        Fecha1 =  sqlread2.GetDateTime(2).ToString("dd/MM/yyyy"),
+                        Nombre_Medico1 = sqlread2.GetString(3) + " " + sqlread2.GetString(4)
                     };
                     CitasList.Add(CitasInfo);
 
                 }
             }
            
-            catch (MySqlException mse)
+            catch (SqlException se)
             {
-                DisplayDialog("Error", mse.Message);
+                DisplayDialog("Error", se.Message);
                 return null;
             }
             DataBase.Db.Close();

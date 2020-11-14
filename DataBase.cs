@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,30 +11,32 @@ namespace ProyectoPrograIV
     public class DataBase
     {
 
-        public static readonly MySqlConnection Db = ConectionDB();
+        public static readonly SqlConnection Db = ConectionDB();
 
 
 
-        private static MySqlConnection ConectionDB()
+        private static SqlConnection ConectionDB()
         {
             try
             {
-                string M_str_sqlcon = "server = 127.0.0.1; user id = root; database = misc; Convert Zero Datetime=True; Allow Zero Datetime=True";
-                MySqlConnection mysqlcon = new MySqlConnection(M_str_sqlcon);
-                return mysqlcon;
-            } catch (MySqlException mse)
+                string M_str_sqlcon = "Data Source=VIVOBOOK;Initial Catalog=ToDoList;" +
+                    "Integrated Security=True;Connect Timeout=30;Encrypt=False;" +
+                    "TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                SqlConnection sqlcon = new SqlConnection(M_str_sqlcon);
+                return sqlcon;
+            } catch (SqlException se)
             { 
-            Console.WriteLine("Intente de nuevo\nError:" + mse.Message);
+            Console.WriteLine("Intente de nuevo\nError:" + se.Message);
                 return null;
             }
 
         }
-        public static MySqlCommand CommandDB(string comando, MySqlConnection conexion)
+        public static SqlCommand CommandDB(string comando, SqlConnection conexion)
         {
            
             try
             {
-                MySqlCommand mysqlcom = new MySqlCommand(comando, conexion);
+                SqlCommand mysqlcom = new SqlCommand(comando, conexion);
                 return mysqlcom;
             }
             catch (MySqlException)
