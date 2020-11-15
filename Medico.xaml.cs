@@ -1,24 +1,9 @@
-﻿
-using Renci.SshNet.Messages;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography.X509Certificates;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -85,7 +70,7 @@ namespace ProyectoPrograIV
             }
             catch (SqlException mse)
             {
-                DisplayDialog("Error", mse.Message);
+                Cita.DisplayDialog("Error", mse.Message);
                 return null;
             }
                 DataBase.Db.Close();
@@ -95,19 +80,33 @@ namespace ProyectoPrograIV
         {
             Lista.ItemsSource = GetCitas();
         }
-        private async void DisplayDialog(string titulo, string contenido)
-        {
-            ContentDialog noWifiDialog = new ContentDialog
-            {
-                Title = titulo,
-                Content = contenido,
-                CloseButtonText = "Ok"
-            };
-            _ = await noWifiDialog.ShowAsync();
-        }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage5));
+        }
+
+        private void Ingresos_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double ingresos = 0;
+                DataBase.Db.Open();
+                String comando = $"select valor_total from misc.pagos join misc.citas on misc.pagos.id_cita = misc.citas.id_cita where misc.citas.id_medico={Sesion.Id_medico} and fecha  between GETDATE() and DATEADD(MONTH, 1, GETDATE())";
+                SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                while (Sqlread.Read())
+                {
+                    ingresos += Sqlread.GetDouble(0);
+                }
+                Cita.DisplayDialog("Ingresos del mes", ingresos.ToString() + "$");
+                DataBase.Db.Close();
+            }
+            catch (Exception ex)
+            {
+                Cita.DisplayDialog("Error",ex.Message);
+            }
+
         }
     }
 }

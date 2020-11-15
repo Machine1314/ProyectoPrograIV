@@ -13,7 +13,7 @@
     <Grid>
         <TextBlock HorizontalAlignment="Center" Margin="0,45,0,0" Text="DIAGNOSTICO DE LA CITA" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="50" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="279,200,0,0" Text="ID  de la cita " TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" />
-        <TextBox x:Name="id_cita" HorizontalAlignment="Left" Margin="653,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="407" FontSize="25" Height="40"/>
+        <TextBox x:Name="id_cita" HorizontalAlignment="Left" Margin="653,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="407" FontSize="25" Height="40" LostFocus="Id_cita_LostFocus"/>
         <TextBlock HorizontalAlignment="Left" Margin="279,268,0,0" Text="Procedimiento realizado" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
         <ComboBox x:Name="procedimiento_list" Margin="653,276,0,0" Width="407" Height="40" FontSize="25" SelectionChanged="Procedimiento_list_SelectionChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="821,427,0,0" Text="Valor Cita" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
@@ -21,11 +21,12 @@
         <Button x:Name="cobrar" Content="Cobrar" Margin="879,601,0,0" VerticalAlignment="Top" FontSize="30" Height="54" Width="181" Click="Cobrar_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="680,360,0,0" Text="Valor Procedimiento" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
         <TextBlock HorizontalAlignment="Left" Margin="904,475,0,0" Text="IVA" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
-        <TextBlock x:Name="Valor_Procedimiento" HorizontalAlignment="Left" Margin="980,380,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
-        <TextBlock x:Name="Valor_Cita" HorizontalAlignment="Left" Margin="980,447,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
-        <TextBlock x:Name="Total_Pago" HorizontalAlignment="Left" Margin="980,547,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
-        <TextBlock x:Name="IVA_Valor" HorizontalAlignment="Left" Margin="980,495,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
+        <TextBlock x:Name="Valor_Procedimiento" HorizontalAlignment="Left" Margin="980,360,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
+        <TextBlock x:Name="Valor_Cita" HorizontalAlignment="Left" Margin="980,427,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
+        <TextBlock x:Name="Total_Pago" HorizontalAlignment="Left" Margin="980,527,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
+        <TextBlock x:Name="IVA_Valor" HorizontalAlignment="Left" Margin="980,475,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="80"/>
         <Button Content="Cancelar" Margin="680,600,0,0" VerticalAlignment="Top" FontSize="30" Click="Button_Click"/>
+        <TextBlock x:Name="Err_Num_Cita" HorizontalAlignment="Left" Margin="652,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Height="26" FontFamily="Verdana" Foreground="Red" Visibility="Collapsed"><Run Text="*El ID que ingres"/><Run Text="ó"/><Run Text=" no existe"/></TextBlock>
 
     </Grid>
 </Page>

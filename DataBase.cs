@@ -1,10 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoPrograIV
 {
@@ -39,7 +34,7 @@ namespace ProyectoPrograIV
                 SqlCommand mysqlcom = new SqlCommand(comando, conexion);
                 return mysqlcom;
             }
-            catch (MySqlException)
+            catch (SqlException)
             {
                 Console.WriteLine("Error al conectar con la base de datos");
                 return null;

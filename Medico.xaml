@@ -12,12 +12,12 @@
 
     <Grid>
         <Rectangle Margin="465,160,41,30" Stroke="Black" StrokeThickness="3"/>
-        <TextBlock x:Name="saludoMsg" Margin="44,60,546,610" Text="TextBlock" TextWrapping="Wrap" FontSize="40"/>
-        <Button Content="Cerrar Sesion" Margin="0,61,68,0" VerticalAlignment="Top" Click="Button_Click" FontSize="25" FontWeight="Bold" Height="50" HorizontalAlignment="Right" Width="177"/>
+        <TextBlock x:Name="saludoMsg" Margin="44,60,815,610" Text="TextBlock" TextWrapping="Wrap" FontSize="40"/>
+        <Button Content="Cerrar Sesion" Margin="0,63,41,0" VerticalAlignment="Top" Click="Button_Click" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Height="47"/>
         <CalendarDatePicker x:Name="picker" Margin="62,402,0,0" VerticalAlignment="Top" DateChanged="CalendarDatePicker_DateChanged" FontSize="30" FontWeight="Bold" FontStyle="Italic" Width="363" Height="65" PlaceholderText="Seleccione la Fecha" RequestedTheme="Default" Background="#FF1B1B1C" FirstDayOfWeek="Monday"/>
         <TextBlock Margin="111,340,0,0" Text="Seleccione la fecha" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Foreground="Black" SelectionHighlightColor="#FFF76161" HorizontalAlignment="Left" Width="271" Height="40" VerticalAlignment="Top"/>
 
-        <Button Content="Diagnosticar Paciente" Margin="0,60,265,0" VerticalAlignment="Top" FontSize="25" Click="Button_Click_1" Height="51" HorizontalAlignment="Right" Width="265"/>
+        <Button Content="Diagnosticar Paciente" Margin="0,63,540,0" VerticalAlignment="Top" FontSize="25" Click="Button_Click_1" Height="47" Width="258" HorizontalAlignment="Right"/>
         <ListView x:Name="Lista" Margin="510,180,75,0"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -57,5 +57,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button x:Name="Ingresos_Btn" Content="Ingresos del mes" Margin="0,65,246,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="25" Click="Ingresos_Btn_Click" Height="48" HorizontalAlignment="Right" Width="259"/>
     </Grid>
 </Page>

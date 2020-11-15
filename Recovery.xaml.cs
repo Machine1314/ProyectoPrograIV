@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -41,17 +28,7 @@ namespace ProyectoPrograIV
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
-        private async void DisplayDialog(string titulo, string contenido)
-        {
-            ContentDialog noWifiDialog = new ContentDialog
-            {
-                Title = titulo,
-                Content = contenido,
-                CloseButtonText = "Ok"
-            };
 
-            _ = await noWifiDialog.ShowAsync();
-        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             DataBase.Db.Open();
@@ -66,7 +43,7 @@ namespace ProyectoPrograIV
             }
             else
             {
-                DisplayDialog("Error","Respuestas Erroneas");
+                Cita.DisplayDialog("Error","Respuestas Erroneas");
             }
             DataBase.Db.Close();
         }

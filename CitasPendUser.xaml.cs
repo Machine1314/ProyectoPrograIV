@@ -1,25 +1,9 @@
-﻿using Org.BouncyCastle.Crypto.Tls;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ProyectoPrograIV;
-using System.Globalization;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,17 +37,7 @@ namespace ProyectoPrograIV
             DataBase.Db.Close();
 
         }     
-        private async void DisplayDialog(string titulo, string contenido)
-        {
-            ContentDialog noWifiDialog = new ContentDialog
-            {
-                Title = titulo,
-                Content = contenido,
-                CloseButtonText = "Ok"
-            };
 
-            _ = await noWifiDialog.ShowAsync();
-        }
         public ObservableCollection<Cita> GetCitas()
         {
             string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from misc.citas " +
@@ -95,7 +69,7 @@ namespace ProyectoPrograIV
            
             catch (SqlException se)
             {
-                DisplayDialog("Error", se.Message);
+                Cita.DisplayDialog("Error", se.Message);
                 return null;
             }
             DataBase.Db.Close();

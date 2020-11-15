@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Sql;
-using System.Data.SqlTypes;
+using Windows.UI.Xaml.Controls;
 
 namespace ProyectoPrograIV
 {
@@ -26,5 +19,15 @@ namespace ProyectoPrograIV
 
         public TimeSpan Tiempo1 { get => Tiempo; set => Tiempo = value; }
         public string Fecha1 { get => Fecha; set => Fecha = value; }
+        public static async void DisplayDialog(string titulo, string contenido)
+        {
+            ContentDialog noWifiDialog = new ContentDialog
+            {
+                Title = titulo,
+                Content = contenido,
+                CloseButtonText = "Ok"
+            };
+            _ = await noWifiDialog.ShowAsync();
+        }
     }
 }

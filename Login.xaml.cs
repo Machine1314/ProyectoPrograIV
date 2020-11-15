@@ -1,30 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace ProyectoPrograIV
 {
-    
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -34,16 +18,7 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
-        private async void DisplayDialog(string titulo, string contenido)
-        {
-            ContentDialog noWifiDialog = new ContentDialog
-            {
-                Title = titulo,
-                Content = contenido,
-                CloseButtonText = "Ok"
-            };
-            _ = await noWifiDialog.ShowAsync();
-        }
+
         //Botones
         //Este metodo ingresa informacion a la base de datos
         private void Login_Btn_Click(object sender, RoutedEventArgs e)
@@ -67,7 +42,7 @@ namespace ProyectoPrograIV
                     }
                     else
                     {
-                        DisplayDialog("Contraseña incorrecta", "Ingreso de nuevo");
+                        Cita.DisplayDialog("Contraseña incorrecta", "Ingreso de nuevo");
                     }
                 }
                 else
@@ -83,14 +58,14 @@ namespace ProyectoPrograIV
                     }
                     else
                     {
-                        DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
+                        Cita.DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
                     }
                 }
                 DataBase.Db.Close();
             }
             catch (SqlException mse)
             {
-                DisplayDialog("Error al cargar datos", "Intente de nuevo\nError:" + mse.Message);
+                Cita.DisplayDialog("Error al cargar datos", "Intente de nuevo\nError:" + mse.Message);
             }
            
         }

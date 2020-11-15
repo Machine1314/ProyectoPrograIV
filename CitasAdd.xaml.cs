@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -46,18 +32,7 @@ namespace ProyectoPrograIV
 
 
         }
-        private async void DisplayDialog(string titulo, string contenido)
-        {
-            ContentDialog noWifiDialog = new ContentDialog
-            {
-                Title = titulo,
-                Content = contenido,
-                CloseButtonText = "Ok"
-            };
-            _ = await noWifiDialog.ShowAsync();
-        }
-        
-  
+
         private void Especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             doctor_lista.SelectedValue = null;
@@ -97,7 +72,7 @@ namespace ProyectoPrograIV
             if (fecha_header.SelectedText==null || hora_picker.SelectedTime == null 
                 || especialidad.SelectedText == null || doctor_lista.SelectedItem == null)
             {
-                DisplayDialog("Error","Uno o más campos no han sido ingresados");
+                Cita.DisplayDialog("Error","Uno o más campos no han sido ingresados");
             }
             else
             {
@@ -118,7 +93,7 @@ namespace ProyectoPrograIV
                 }
                 catch (SqlException mse)
                 {
-                    DisplayDialog("Error", mse.Message);
+                    Cita.DisplayDialog("Error", mse.Message);
                 }
 
                 DataBase.Db.Close();

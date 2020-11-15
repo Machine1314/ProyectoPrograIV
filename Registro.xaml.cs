@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -31,16 +20,7 @@ namespace ProyectoPrograIV
             this.InitializeComponent();
         }
 
-        private async void DisplayDialog(string titulo, string contenido)
-        {
-            ContentDialog noWifiDialog = new ContentDialog
-            {
-                Title = titulo,
-                Content = contenido,
-                CloseButtonText = "Ok"
-            };
-            _ = await noWifiDialog.ShowAsync();
-        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
@@ -53,7 +33,7 @@ namespace ProyectoPrograIV
                 || string.IsNullOrEmpty(contra_input.Text)
                 || string.IsNullOrEmpty(contra_input.Text) || string.IsNullOrEmpty(correo_input.Text))
             {
-                DisplayDialog("Error", "Uno o mas campos vacios");
+                Cita.DisplayDialog("Error", "Uno o mas campos vacios");
             }
             else
             {
@@ -66,7 +46,7 @@ namespace ProyectoPrograIV
                     if (Sqlread.Read())
                     {
                         DataBase.Db.Close();
-                        DisplayDialog("Error", "Datos ingresados previamente.");
+                        Cita.DisplayDialog("Error", "Datos ingresados previamente.");
                     }
                     else
                     {
@@ -82,30 +62,91 @@ namespace ProyectoPrograIV
                                 DataBase.Db.Open();
                                 SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                                 cmd.ExecuteNonQuery();
-                                DisplayDialog("Exito", "Cuenta creada con exito.");
+                                Cita.DisplayDialog("Exito", "Cuenta creada con exito.");
                                 DataBase.Db.Close();
                             }
                             catch (SqlException mse)
                             {
-                                DisplayDialog("Error", mse.Message);
+                                Cita.DisplayDialog("Error", mse.Message);
                             }
 
                             this.Frame.Navigate(typeof(MainPage));
                         }
                         else
                         {
-                            DisplayDialog("Error", "La contraseña no coincide, intente de nuevo.");
+                            Cita.DisplayDialog("Error", "La contraseña no coincide, intente de nuevo.");
                         }
                     }
                     //Fin de la comprobacion
                 }
                 catch (SqlException mse)
                 {
-                    DisplayDialog("Error", "Un error ocurrio en la aplicacion.\n" + mse.Message
+                    Cita.DisplayDialog("Error", "Un error ocurrio en la aplicacion.\n" + mse.Message
                         );
                 }
             }
 
+        }
+
+        private void Cedula_input_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (cedula_input.Text != "")
+            {
+                char[] Cedula = cedula_input.Text.ToCharArray();
+                int par = 0, impar = 0, verifi;
+                int aux;
+                for (int i = 0; i < 9; i += 2)
+                {
+                    aux = 2 * int.Parse(Cedula[i].ToString());
+                    if (aux > 9)
+                        aux -= 9;
+                    par += aux;
+                }
+                for (int i = 1; i < 9; i += 2)
+                {
+                    impar += int.Parse(Cedula[i].ToString());
+                }
+
+                aux = par + impar;
+                if (aux % 10 != 0)
+                {
+                    verifi = 10 - (aux % 10);
+                }
+                else
+                    verifi = 0;
+                if (verifi != int.Parse(Cedula[9].ToString()))
+                {
+                    Err_Num_Ced.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Err_Num_Ced.Visibility = Visibility.Collapsed;
+                }
+
+            }
+
+        }
+
+        private void NumbersOnly(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        private void Cel_input_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (cel_input.Text != "")
+            {
+                char[] celular = cel_input.Text.ToCharArray();
+                if (celular[0] != 0 && celular[1] != 9)
+                {
+                    Err_Num_Cel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Err_Num_Cel.Visibility = Visibility.Collapsed;
+                }
+            }
+            
         }
     }
 }
