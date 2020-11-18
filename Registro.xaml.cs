@@ -131,6 +131,10 @@ namespace ProyectoPrograIV
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
         }
+        private void LettersOnly(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => char.IsDigit(c));
+        }
 
         private void Cel_input_LostFocus(object sender, RoutedEventArgs e)
         {
