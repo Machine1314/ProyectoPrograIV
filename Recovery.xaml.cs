@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,21 +32,37 @@ namespace ProyectoPrograIV
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DataBase.Db.Open();
-            Sesion.Mail = Correo.Text;
-            string comando = $"select * from misc.preguntas where id_usuario=(select user_id from usersxd where email='{Correo.Text}') AND pregunta1='{Respuesta1.Text}'" +
-                $"AND pregunta2='{Respuesta2.Text}' AND pregunta3='{Respuesta3.Text}'";
-            SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-            SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            if (Sqlread.Read())
+            if (Correo.Text == "" || Respuesta1.Text == "" || Respuesta2.Text == "" || Respuesta3.Text == "")
             {
-                this.Frame.Navigate(typeof(Clave));
+                Cita.DisplayDialog("Error","Uno o más campos vacios.");
             }
             else
             {
-                Cita.DisplayDialog("Error","Respuestas Erroneas");
+                try
+                {
+                    DataBase.Db.Open();
+                    Sesion.Mail = Correo.Text;
+                    string comando = $"select * from misc.preguntas where id_usuario=(select user_id from misc.usersxd where email='{Correo.Text}') AND pregunta1='{Respuesta1.Text}'" +
+                        $"AND pregunta2='{Respuesta2.Text}' AND pregunta3='{Respuesta3.Text}'";
+                    SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                    SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    if (Sqlread.Read())
+                    {
+                        this.Frame.Navigate(typeof(Clave));
+                    }
+                    else
+                    {
+                        Cita.DisplayDialog("Error", "Respuestas Erroneas");
+                    }
+                    DataBase.Db.Close();
+                }
+                catch (Exception ex)
+                {
+                    Cita.DisplayDialog("Error", ex.Message);
+                }
+               
             }
-            DataBase.Db.Close();
+           
         }
     }
 }

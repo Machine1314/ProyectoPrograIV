@@ -15,7 +15,7 @@
         <TextBlock Margin="376,40,363,0" Text="CAMBIO DE CONTRASEÑA" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" FontFamily="Verdana"/>
         <TextBlock x:Name="AdvertenciaTxt" HorizontalAlignment="Left" Margin="10,677,0,0" Text="*Una vez cambies la contraseña deberás iniciar sesión nuevamente" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="20" FontFamily="Verdana"/>
         <Button x:Name="ContinuarBtn" Content="Continuar" Margin="0,445,0,0" VerticalAlignment="Top" FontSize="30" HorizontalAlignment="Center" FontFamily="Verdana" Click="ContinuarBtn_Click" Height="50" Width="366"/>
-        <Button x:Name="CancelarBtn" Content="Cancelar" Margin="0,520,0,0" VerticalAlignment="Top" FontSize="30" FontFamily="Verdana" HorizontalAlignment="Center" Width="366"/>
+        <Button x:Name="CancelarBtn" Content="Cancelar" Margin="0,520,0,0" VerticalAlignment="Top" FontSize="30" FontFamily="Verdana" HorizontalAlignment="Center" Width="366" Click="CancelarBtn_Click"/>
         <PasswordBox x:Name="ContrasenaNueva" HorizontalAlignment="Center" Margin="0,260,0,0" VerticalAlignment="Top" PlaceholderText="Nueva Contraseña" FontSize="30" FontFamily="Verdana" Width="368"/>
         <PasswordBox x:Name="ConfContraNueva" HorizontalAlignment="Center" VerticalAlignment="Center" PlaceholderText="Confirmar Contraseña" FontSize="30" FontFamily="Verdana" Width="368"/>
 

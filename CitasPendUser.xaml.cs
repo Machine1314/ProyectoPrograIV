@@ -79,6 +79,7 @@ namespace ProyectoPrograIV
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Sesion.Clear();
             this.Frame.Navigate(typeof(MainPage));
         }
 

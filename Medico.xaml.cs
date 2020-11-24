@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -39,6 +40,7 @@ namespace ProyectoPrograIV
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Sesion.Clear();
             this.Frame.Navigate(typeof(MainPage));
         }
         public ObservableCollection<Cita> GetCitas()
@@ -99,7 +101,7 @@ namespace ProyectoPrograIV
                 {
                     ingresos += Sqlread.GetDouble(0);
                 }
-                Cita.DisplayDialog("Ingresos del mes", ingresos.ToString() + "$");
+                Cita.DisplayDialog($"Ingresos de {System.DateTime.Now.ToString("MMMM", new CultureInfo("es-ES", false).DateTimeFormat)}", ingresos.ToString() + "$");
                 DataBase.Db.Close();
             }
             catch (Exception ex)
