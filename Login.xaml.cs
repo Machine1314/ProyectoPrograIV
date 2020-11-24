@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,14 +19,16 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
+        // Create salted password to save in database.
 
         //Botones
         //Este metodo ingresa informacion a la base de datos
         private void Login_Btn_Click(object sender, RoutedEventArgs e)
         {
+          
             Sesion.Mail = nombre.Text;
-            string comandoMedico = $"select * from misc.medico where email='{nombre.Text}'  COLLATE Latin1_General_CS_AS  and contrasena='{contraseña_txt.Password}'  COLLATE Latin1_General_CS_AS ";
-            string comandoUsuario = $"select * from misc.usersxd where email='{nombre.Text}'  COLLATE Latin1_General_CS_AS  and password='{contraseña_txt.Password}'  COLLATE Latin1_General_CS_AS ";
+            string comandoMedico = $"select * from misc.medico where email='{nombre.Text}'";
+            string comandoUsuario = $"select * from misc.usersxd where email='{nombre.Text}'";
             DataBase.Db.Open();
             try
             {
@@ -35,14 +38,22 @@ namespace ProyectoPrograIV
                     SqlDataReader Sqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
                     if (Sqlread2.Read())
                     {
-                        Sesion.Id_especialidad = Sqlread2.GetInt32(3);
-                        Sesion.Id_medico = Sqlread2.GetInt32(0);
-                        DataBase.Db.Close();
-                        this.Frame.Navigate(typeof(BlankPage6));
+                        if(DataBase.Verify(Sqlread2.GetString(5), contraseña_txt.Password))
+                        {
+                            Sesion.Id_especialidad = Sqlread2.GetInt32(3);
+                            Sesion.Id_medico = Sqlread2.GetInt32(0);
+                            DataBase.Db.Close();
+                            this.Frame.Navigate(typeof(BlankPage6));
+                        }
+                        else
+                        {
+                            Cita.DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
+                        }
+
                     }
                     else
                     {
-                        Cita.DisplayDialog("Contraseña incorrecta", "Ingreso de nuevo");
+                        Cita.DisplayDialog("No existe el correo ingresado", "Intente de nuevo");
                     }
                 }
                 else
@@ -51,14 +62,20 @@ namespace ProyectoPrograIV
                     SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                     if (Sqlread.Read())
                     {
-                        
-                        Sesion.Id_user = Sqlread.GetInt32(0);
-                        DataBase.Db.Close();
-                        this.Frame.Navigate(typeof(BlankPage1));
+                        if (DataBase.Verify(Sqlread.GetString(4), contraseña_txt.Password))
+                        {
+                            Sesion.Id_user = Sqlread.GetInt32(0);
+                            DataBase.Db.Close();
+                            this.Frame.Navigate(typeof(BlankPage1));
+                        }
+                        else
+                        {
+                            Cita.DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
+                        }
                     }
                     else
                     {
-                        Cita.DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
+                        Cita.DisplayDialog("No existe el correo ingresado", "Intente de nuevo");
                     }
                 }
                 DataBase.Db.Close();

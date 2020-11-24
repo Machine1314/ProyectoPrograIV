@@ -24,8 +24,9 @@ namespace ProyectoPrograIV
                 //Comprueba si los campos coinciden
                 if (ConfContraNueva.Password.Equals(ContrasenaNueva.Password))
                 {
+                    string contra = DataBase.Encrypt(ConfContraNueva.Password);
                     DataBase.Db.Open();
-                    string comando = $"UPDATE misc.usersxd set password='{ConfContraNueva.Password}' where email='{Sesion.Mail}'";
+                    string comando = $"UPDATE misc.usersxd set password='{contra}' where email='{Sesion.Mail}'";
                     SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                     try
                     {

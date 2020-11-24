@@ -23,9 +23,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="700,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" Height="40" Text="Preguntas de Seguridad" FontFamily="Verdana"/>
         <TextBox x:Name="nombre_input" HorizontalAlignment="Left" Margin="168,223,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="405" FontSize="25" PlaceholderText="Nombre" FontFamily="Verdana" ManipulationMode="TranslateRailsX" BeforeTextChanging="LettersOnly"/>
         <TextBox x:Name="edad_input" HorizontalAlignment="Left" Margin="170,283,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="109" FontSize="25" PlaceholderText="Edad" FontFamily="Verdana" BeforeTextChanging="NumbersOnly" MaxLength="3"/>
-        <TextBox x:Name="correo_input" HorizontalAlignment="Left" Margin="170,400,0,0" Text="" TextWrapping="Wrap" Width="402" FontSize="25" PlaceholderText="Correo Electrónico" FontFamily="Verdana" Height="40" VerticalAlignment="Top"/>
-        <TextBox x:Name="contra_input" HorizontalAlignment="Left" Margin="175,524,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="399" FontSize="25" PlaceholderText="Contraseña" FontFamily="Verdana"/>
-        <TextBox x:Name="confContra_input" HorizontalAlignment="Left" Margin="175,574,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="399" FontSize="25" PlaceholderText="Confirmación de contraseña" FontFamily="Verdana"/>
+        <TextBox x:Name="correo_input" HorizontalAlignment="Left" Margin="170,400,0,0" Text="" TextWrapping="Wrap" Width="402" FontSize="25" PlaceholderText="Correo Electrónico" FontFamily="Verdana" Height="50" VerticalAlignment="Top"/>
         <TextBox x:Name="cel_input" HorizontalAlignment="Left" Margin="289,283,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Height="40" FontSize="25" PlaceholderText="Celular/Teléfono" FontFamily="Verdana" BeforeTextChanging="NumbersOnly" LostFocus="Cel_input_LostFocus" MaxLength="10"/>
         <TextBox x:Name="cedula_input" HorizontalAlignment="Left" Margin="170,340,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="404" PlaceholderText="Cédula" FontSize="25" FontFamily="Verdana" LostFocus="Cedula_input_LostFocus" BeforeTextChanging="NumbersOnly" MaxLength="10"/>
         <TextBox x:Name="Pregunta1" HorizontalAlignment="Left" Margin="702,223,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" PlaceholderText="Nombre de tu primera mascota" Height="40" FontFamily="Verdana" Width="474"/>
@@ -33,6 +31,8 @@
         <TextBox x:Name="Pregunta3" HorizontalAlignment="Left" Margin="702,340,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" PlaceholderText="Deporte Favorito" Height="40" FontFamily="Verdana" Width="473"/>
         <TextBlock x:Name="Err_Num_Ced" HorizontalAlignment="Left" Margin="170,328,0,0" Text="*Número de cédula inválido" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Red" Width="174" Height="12" FontSize="9" FontFamily="Verdana" FocusVisualPrimaryBrush="Red" Visibility="Collapsed"/>
         <TextBlock x:Name="Err_Num_Cel" HorizontalAlignment="Left" Margin="289,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9" FontFamily="Verdana" FocusVisualPrimaryBrush="Red" Foreground="Red" Width="138" Visibility="Collapsed"><Run Text="*N"/><Run Text="úmero inválido"/></TextBlock>
+        <PasswordBox x:Name="Contra_txt" HorizontalAlignment="Left" Margin="177,538,0,0" VerticalAlignment="Top" FontSize="25" PlaceholderText="Contraseña" Width="398"/>
+        <PasswordBox x:Name="ConfContra_txt" HorizontalAlignment="Left" Margin="177,593,0,0" VerticalAlignment="Top" FontSize="25" PlaceholderText="Confirmación de contraseña" Width="397"/>
 
     </Grid>
 </Page>

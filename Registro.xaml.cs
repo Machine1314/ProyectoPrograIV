@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -29,9 +31,8 @@ namespace ProyectoPrograIV
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //comando que ingresa los datos a la base
-            if (string.IsNullOrEmpty(cedula_input.Text) || string.IsNullOrEmpty(cel_input.Text)|| string.IsNullOrEmpty(nombre_input.Text) || string.IsNullOrEmpty(contra_input.Text)
-                || string.IsNullOrEmpty(contra_input.Text)
-                || string.IsNullOrEmpty(contra_input.Text) || string.IsNullOrEmpty(correo_input.Text))
+            if (string.IsNullOrEmpty(cedula_input.Text) || string.IsNullOrEmpty(cel_input.Text)|| string.IsNullOrEmpty(nombre_input.Text) || string.IsNullOrEmpty(Contra_txt.Password)
+                || string.IsNullOrEmpty(Contra_txt.Password) || string.IsNullOrEmpty(correo_input.Text))
             {
                 Cita.DisplayDialog("Error", "Uno o mas campos vacios");
             }
@@ -51,11 +52,12 @@ namespace ProyectoPrograIV
                     else
                     {
                         DataBase.Db.Close();
-                        if (confContra_input.Text.Equals(contra_input.Text))
+                        if (ConfContra_txt.Password.Equals(Contra_txt.Password))
                         {
+                            string contra = DataBase.Encrypt(ConfContra_txt.Password);
                             String comando = $"INSERT INTO misc.usersxd (name, email, password, cedula, celular, edad) values ('{nombre_input.Text}','{correo_input.Text}'" +
-                            $",'{contra_input.Text}','{ Int64.Parse(cedula_input.Text)}','{Int64.Parse(cel_input.Text)}', '{ Int64.Parse(edad_input.Text) }');" +
-                            $"INSERT INTO misc.preguntas(id_usuario, pregunta1, pregunta2, pregunta3) values ((select user_id from usersxd where email='{correo_input.Text}'), '{Pregunta1.Text}','{Pregunta2.Text}', '{Pregunta3.Text}') ";
+                            $",'{contra}','{ Int64.Parse(cedula_input.Text)}','{Int64.Parse(cel_input.Text)}', '{ Int64.Parse(edad_input.Text) }');" +
+                            $"INSERT INTO misc.preguntas(id_usuario, pregunta1, pregunta2, pregunta3) values ((select user_id from misc.usersxd where email='{correo_input.Text}'), '{Pregunta1.Text}','{Pregunta2.Text}', '{Pregunta3.Text}') ";
 
                             try
                             {
@@ -141,7 +143,7 @@ namespace ProyectoPrograIV
             if (cel_input.Text != "")
             {
                 char[] celular = cel_input.Text.ToCharArray();
-                if (celular[0] != 0 && celular[1] != 9)
+                if (celular[0] != '0' && celular[1] != '9')
                 {
                     Err_Num_Cel.Visibility = Visibility.Visible;
                 }
