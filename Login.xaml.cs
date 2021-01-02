@@ -25,14 +25,13 @@ namespace ProyectoPrograIV
         //Este metodo ingresa informacion a la base de datos
         private void Login_Btn_Click(object sender, RoutedEventArgs e)
         {
-          
             Sesion.Mail = nombre.Text;
             string comandoMedico = $"select * from misc.medico where email='{nombre.Text}'";
             string comandoUsuario = $"select * from misc.usersxd where email='{nombre.Text}'";
             DataBase.Db.Open();
             try
             {
-                if (nombre.Text.Contains("@to-do/list.com"))
+                if (nombre.Text.Contains("@todolist.com"))
                 {
                     SqlCommand cmd2 = DataBase.CommandDB(comandoMedico, DataBase.Db);
                     SqlDataReader Sqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);

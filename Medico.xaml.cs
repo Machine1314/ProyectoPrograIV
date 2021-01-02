@@ -21,7 +21,7 @@ namespace ProyectoPrograIV
             this.InitializeComponent();
             picker.Date = DateTime.Now;
             DataBase.Db.Open();
-            String comando = $"select nombre, apellido, id_medico from misc.medico where email='{Sesion.Mail}'";
+            string comando = $"select nombre, apellido, id_medico from misc.medico where email='{Sesion.Mail}'";
             SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
             SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (Sqlread.Read())

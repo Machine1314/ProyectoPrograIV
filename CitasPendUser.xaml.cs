@@ -4,6 +4,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Threading;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,14 +32,8 @@ namespace ProyectoPrograIV
                 Sesion.Nombre = sqlread.GetString(0);
                 txt_bnd.Text = $"Bienvenido, {Sesion.Nombre}";
             }
-            else
-            {
-                txt_bnd.Text = "Bienvenido Sin Parametro";
-            }
             DataBase.Db.Close();
-
         }     
-
         public ObservableCollection<Cita> GetCitas()
         {
             string GetCitas = $"select id_cita, hora, fecha, medico.nombre, medico.apellido  from misc.citas " +
@@ -86,6 +82,12 @@ namespace ProyectoPrograIV
         private void NuevaCita_btn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage3));
+        }
+
+        private void Lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Cita value = (Cita)Lista.SelectedItem;
+            Cita.DisplayCitaConf(value.Id_cita1, this.Frame);
         }
     }
 }

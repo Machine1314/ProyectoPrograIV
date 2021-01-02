@@ -27,7 +27,8 @@
                   ScrollViewer.VerticalScrollMode="Enabled"
                   ScrollViewer.HorizontalScrollMode="Enabled"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.IsHorizontalRailEnabled="True"  FontSize="20" HorizontalAlignment="Right" Width="825" Foreground="#FF4E4141" Height="435" VerticalAlignment="Top">
+                  ScrollViewer.IsHorizontalRailEnabled="True"  FontSize="20" HorizontalAlignment="Right" Width="825" Foreground="#FF4E4141" Height="435" VerticalAlignment="Top"
+                  SelectionChanged="Lista_SelectionChanged">
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="45"  >
@@ -65,5 +66,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <TextBlock x:Name="MensajeCncelar" HorizontalAlignment="Right" Margin="0,199,519,0" Text="Si desea cancelar la cita haga clic sobre la misma." TextWrapping="Wrap" VerticalAlignment="Top" Width="375" FontFamily="Verdana"/>
     </Grid>
 </Page>

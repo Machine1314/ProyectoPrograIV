@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using Windows.UI.Xaml.Controls;
 
 namespace ProyectoPrograIV
@@ -28,6 +29,27 @@ namespace ProyectoPrograIV
                 CloseButtonText = "Ok"
             };
             _ = await noWifiDialog.ShowAsync();
+        }
+        public static async void DisplayCitaConf(int id, Frame frame)
+        {
+            ContentDialog Dialog = new ContentDialog
+            {
+                Title = "Cita",
+                Content = "¿Quiere cancelar esta cita?",
+                PrimaryButtonText = "Sí",
+                CloseButtonText = "Cancelar"
+            };
+
+            ContentDialogResult result = await Dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                DataBase.Db.Open();
+                string comando = $"DELETE FROM misc.citas WHERE id_cita={id}";
+                SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
+                cmd.ExecuteNonQuery();
+                DataBase.Db.Close();
+                frame.Navigate(typeof(BlankPage1));
+            }
         }
     }
 }
