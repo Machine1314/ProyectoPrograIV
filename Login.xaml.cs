@@ -37,7 +37,7 @@ namespace ProyectoPrograIV
                     SqlDataReader Sqlread2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
                     if (Sqlread2.Read())
                     {
-                        if(DataBase.Verify(Sqlread2.GetString(5), contraseña_txt.Password))
+                        if (DataBase.Verify(Sqlread2.GetString(5), contraseña_txt.Password))
                         {
                             Sesion.Id_especialidad = Sqlread2.GetInt32(3);
                             Sesion.Id_medico = Sqlread2.GetInt32(0);

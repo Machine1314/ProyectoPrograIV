@@ -31,7 +31,7 @@
                     <StackPanel Orientation="Horizontal" Height="45"  >
                         <TextBlock Text="ID" Margin="8,0" Width="100" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
                         <TextBlock Text="Hora" Width="200" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
-                        <TextBlock Text="Paciente" Width="220" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
+                        <TextBlock Text="Paciente" Width="300" Foreground="LightBlue" FontSize="35" FocusVisualPrimaryBrush="Black" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.HeaderTemplate>
@@ -50,7 +50,7 @@
                                    Foreground="WhiteSmoke"
                                    FontSize="35"/>
                         <TextBlock Text="{x:Bind Nombre_Usuario1}"
-                                   Width="220" 
+                                   Width="300" 
                                    Foreground="WhiteSmoke"
                                    FontSize="35"/>
                     </StackPanel>

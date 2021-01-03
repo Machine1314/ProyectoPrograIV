@@ -15,7 +15,6 @@ namespace ProyectoPrograIV
     /// </summary>
     public sealed partial class BlankPage6 : Page
     {
-
         public BlankPage6()
         {
             this.InitializeComponent();
@@ -34,10 +33,7 @@ namespace ProyectoPrograIV
                 saludoMsg.Text = "Bienvenido";
             }
             DataBase.Db.Close();
-
         }
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Sesion.Clear();
@@ -87,7 +83,6 @@ namespace ProyectoPrograIV
         {
             this.Frame.Navigate(typeof(BlankPage5));
         }
-
         private void Ingresos_Btn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -108,7 +103,6 @@ namespace ProyectoPrograIV
             {
                 Cita.DisplayDialog("Error",ex.Message);
             }
-
         }
     }
 }
