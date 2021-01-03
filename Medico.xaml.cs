@@ -46,11 +46,8 @@ namespace ProyectoPrograIV
             int mes = picker.Date.Value.Month;
             string GetCitas = $"select id_cita, misc.usersxd.name, hora from misc.citas join misc.usersxd on misc.usersxd.user_id=id_usuario where fecha='{anio}-{mes}-{dia}' and pagado=0 " +
              $"and id_medico={Sesion.Id_medico}";
-
             var CitasList = new ObservableCollection<Cita>();
-
             DataBase.Db.Open();
-
             try
             {
                 SqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
@@ -78,7 +75,6 @@ namespace ProyectoPrograIV
         {
             Lista.ItemsSource = GetCitas();
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage5));
@@ -89,7 +85,7 @@ namespace ProyectoPrograIV
             {
                 double ingresos = 0;
                 DataBase.Db.Open();
-                String comando = $"select valor_total from misc.pagos join misc.citas on misc.pagos.id_cita = misc.citas.id_cita where misc.citas.id_medico={Sesion.Id_medico} and fecha  between GETDATE() and DATEADD(MONTH, 1, GETDATE())";
+                string comando = $"select valor_total from misc.pagos join misc.citas on misc.pagos.id_cita = misc.citas.id_cita where misc.citas.id_medico={Sesion.Id_medico} and fecha  between GETDATE() and DATEADD(MONTH, 1, GETDATE())";
                 SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
                 SqlDataReader Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 while (Sqlread.Read())

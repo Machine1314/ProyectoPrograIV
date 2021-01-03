@@ -7,11 +7,7 @@ namespace ProyectoPrograIV
 {
     public class DataBase
     {
-
         public static readonly SqlConnection Db = ConectionDB();
-
-
-
         private static SqlConnection ConectionDB()
         {
             try
@@ -27,11 +23,9 @@ namespace ProyectoPrograIV
                 Console.WriteLine("Intente de nuevo\nError:" + se.Message);
                 return null;
             }
-
         }
         public static SqlCommand CommandDB(string comando, SqlConnection conexion)
         {
-
             try
             {
                 SqlCommand mysqlcom = new SqlCommand(comando, conexion);
@@ -42,8 +36,6 @@ namespace ProyectoPrograIV
                 Console.WriteLine("Error al conectar con la base de datos");
                 return null;
             }
-
-
         }
         public static string Encrypt(string password)
         {

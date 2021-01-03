@@ -12,8 +12,6 @@ namespace ProyectoPrograIV
     /// </summary>
     public sealed partial class BlankPage3 : Page
     {
-
-       
         public BlankPage3()
         {
             this.InitializeComponent();
@@ -28,16 +26,11 @@ namespace ProyectoPrograIV
                 especialidad_lista.Items.Add(Sqlread.GetString(0));
             }
             DataBase.Db.Close();
-            //doctores
-
-
         }
-
         private void Especialidad_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             doctor_lista.SelectedValue = null;
             doctor_lista.Items.Clear();
-
             DataBase.Db.Open();
             string comando = $"select nombre, apellido, id_medico from misc.medico where id_especialidad=(select id_especialidad from misc.especialidad where nombre='{especialidad_lista.SelectedValue}')";
             SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
@@ -48,25 +41,20 @@ namespace ProyectoPrograIV
                 doctor_lista.Items.Add(objeto);
             }
             DataBase.Db.Close();
-
         }
-
         private void Doctor_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                string phrase = doctor_lista.SelectedValue?.ToString();
+           string phrase = doctor_lista.SelectedValue?.ToString();
             if (phrase != null)
             {
                 string[] words = phrase.Split(' ');
                 Sesion.Id_medico = int.Parse(words[2]);
             }
-        
         }
-
         private void Regresar_btn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage1));
         }
-
         private void Agendar_btn_Click(object sender, RoutedEventArgs e)
         {
             if (fecha_header.SelectedText==null || hora_picker.SelectedTime == null 
@@ -88,28 +76,15 @@ namespace ProyectoPrograIV
                 {
                     string comando = $"insert into misc.citas(id_usuario, id_medico, fecha, hora) values ({Sesion.Id_user}, {Sesion.Id_medico}, '{año}-{mes}-{dia}', '{hora}:{minuto}')";
                     SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException mse)
                 {
                     Cita.DisplayDialog("Error", mse.Message);
                 }
-
                 DataBase.Db.Close();
                 this.Frame.Navigate(typeof(BlankPage1));
             }
-
-        }
-
-        private void Fecha_picker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
-        {
- 
-        }
-
-        private void Hora_picker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
-        {
- 
         }
     }
 }

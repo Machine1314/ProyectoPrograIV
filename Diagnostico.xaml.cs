@@ -27,7 +27,6 @@ namespace ProyectoPrograIV
             }
             DataBase.Db.Close();
         }
-
         private void Cobrar_Click(object sender, RoutedEventArgs e)
         {
             if (id_cita.Text == "")
@@ -45,7 +44,6 @@ namespace ProyectoPrograIV
             }
                 this.Frame.Navigate(typeof(BlankPage6));    
         }
-
         private void Procedimiento_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -73,14 +71,11 @@ namespace ProyectoPrograIV
             {
                 Cita.DisplayDialog("Error", ex.Message);
             }
-            
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage6));
         }
-
         private void Id_cita_LostFocus(object sender, RoutedEventArgs e)
         {
             if (id_cita.Text != "")
@@ -90,10 +85,7 @@ namespace ProyectoPrograIV
                     DataBase.Db.Open();
                     string comando = $"select id_cita from misc.citas where id_cita = {id_cita.Text?.ToString()}";
                     SqlCommand cmd = DataBase.CommandDB(comando, DataBase.Db);
-
                     var Sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-
                     if (!Sqlread.Read())
                     {
                         Err_Num_Cita.Visibility = Visibility.Visible;

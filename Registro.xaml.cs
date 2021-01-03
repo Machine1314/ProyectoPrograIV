@@ -21,13 +21,10 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //comando que ingresa los datos a la base
@@ -58,7 +55,6 @@ namespace ProyectoPrograIV
                             String comando = $"INSERT INTO misc.usersxd (name, email, password, cedula, celular, edad) values ('{nombre_input.Text}','{correo_input.Text}'" +
                             $",'{contra}','{ Int64.Parse(cedula_input.Text)}','{Int64.Parse(cel_input.Text)}', '{ Int64.Parse(edad_input.Text) }');" +
                             $"INSERT INTO misc.preguntas(id_usuario, pregunta1, pregunta2, pregunta3) values ((select user_id from misc.usersxd where email='{correo_input.Text}'), '{Pregunta1.Text}','{Pregunta2.Text}', '{Pregunta3.Text}') ";
-
                             try
                             {
                                 DataBase.Db.Open();
@@ -71,7 +67,6 @@ namespace ProyectoPrograIV
                             {
                                 Cita.DisplayDialog("Error", mse.Message);
                             }
-
                             this.Frame.Navigate(typeof(MainPage));
                         }
                         else
@@ -83,13 +78,10 @@ namespace ProyectoPrograIV
                 }
                 catch (SqlException mse)
                 {
-                    Cita.DisplayDialog("Error", "Un error ocurrio en la aplicacion.\n" + mse.Message
-                        );
+                    Cita.DisplayDialog("Error", "Un error ocurrio en la aplicacion.\n" + mse.Message);
                 }
             }
-
         }
-
         private void Cedula_input_LostFocus(object sender, RoutedEventArgs e)
         {
             if (cedula_input.Text != "")
@@ -124,11 +116,8 @@ namespace ProyectoPrograIV
                 {
                     Err_Num_Ced.Visibility = Visibility.Collapsed;
                 }
-
             }
-
         }
-
         private void NumbersOnly(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
@@ -137,7 +126,6 @@ namespace ProyectoPrograIV
         {
             args.Cancel = args.NewText.Any(c => char.IsDigit(c));
         }
-
         private void Cel_input_LostFocus(object sender, RoutedEventArgs e)
         {
             if (cel_input.Text != "")
@@ -152,7 +140,6 @@ namespace ProyectoPrograIV
                     Err_Num_Cel.Visibility = Visibility.Collapsed;
                 }
             }
-            
         }
     }
 }

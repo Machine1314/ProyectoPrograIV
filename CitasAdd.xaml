@@ -17,7 +17,7 @@
                 <CompositeTransform SkewX="1.21" TranslateX="0.729"/>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <TimePicker x:Name="hora_picker" Margin="475,405,0,0" VerticalAlignment="Top" SelectedTimeChanged="Hora_picker_SelectedTimeChanged" Height="38" Width="466" FontWeight="Normal" ClockIdentifier="12HourClock" FontSize="25">
+        <TimePicker x:Name="hora_picker" Margin="475,405,0,0" VerticalAlignment="Top" Height="38" Width="466" FontWeight="Normal" ClockIdentifier="24HourClock" FontSize="25" AutomationProperties.HelpText="">
             <TimePicker.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -25,7 +25,7 @@
                 </LinearGradientBrush>
             </TimePicker.Background>
         </TimePicker>
-        <CalendarDatePicker x:Name="fecha_picker" Margin="475,325,0,0" VerticalAlignment="Top" Height="40" Width="498" DateChanged="Fecha_picker_DateChanged" PlaceholderText="Seleccione la fecha" Background="#66C71717" FontSize="30"/>
+        <CalendarDatePicker x:Name="fecha_picker" Margin="475,325,0,0" VerticalAlignment="Top" Height="40" Width="498" PlaceholderText="Seleccione la fecha" Background="#66C71717" FontSize="30"/>
         <TextBlock x:Name="hora_header" HorizontalAlignment="Left" Margin="60,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"><Run Text="H"/><Run Text="ora:"/></TextBlock>
         <ComboBox x:Name="especialidad_lista" Margin="475,189,0,0" Width="498" Height="40" RenderTransformOrigin="0.5,0.5" SelectionChanged="Especialidad_lista_SelectionChanged" FontSize="20"/>
         <ComboBox x:Name="doctor_lista" Margin="475,255,0,0" Width="498" Height="40" SelectionChanged="Doctor_lista_SelectionChanged" FontSize="20"/>

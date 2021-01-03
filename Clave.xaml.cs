@@ -15,7 +15,6 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
-
         private void ContinuarBtn_Click(object sender, RoutedEventArgs e)
         {
             //Comprueba si los campos estan vacios
@@ -48,9 +47,7 @@ namespace ProyectoPrograIV
             {
                 Cita.DisplayDialog("Error", "Uno o más campos vacios.");
             }
-
         }
-
         private void CancelarBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));

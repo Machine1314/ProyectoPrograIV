@@ -16,8 +16,6 @@ namespace ProyectoPrograIV
     /// </summary>
     public sealed partial class BlankPage1 : Page
     {
- 
-  
         public BlankPage1()
         {
             this.InitializeComponent();
@@ -28,7 +26,6 @@ namespace ProyectoPrograIV
             SqlDataReader sqlread = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             if (sqlread.Read())
             {
-
                 Sesion.Nombre = sqlread.GetString(0);
                 txt_bnd.Text = $"Bienvenido, {Sesion.Nombre}";
             }
@@ -40,11 +37,8 @@ namespace ProyectoPrograIV
                 $"join misc.medico on medico.id_medico=citas.id_medico where fecha BETWEEN GETDATE() " +
                 $"and DATEADD(year, 1, GETDATE()) and citas.id_usuario = " +
                 $"(SELECT user_id from misc.usersxd where email='{Sesion.Mail}') AND pagado=0";
-
             var CitasList = new ObservableCollection<Cita>();
-            
             DataBase.Db.Open();
-
             try
             {
                 SqlCommand cmd2 = DataBase.CommandDB(GetCitas, DataBase.Db);
@@ -59,10 +53,8 @@ namespace ProyectoPrograIV
                         Nombre_Medico1 = sqlread2.GetString(3) + " " + sqlread2.GetString(4)
                     };
                     CitasList.Add(CitasInfo);
-
                 }
             }
-           
             catch (SqlException se)
             {
                 Cita.DisplayDialog("Error", se.Message);
@@ -70,20 +62,16 @@ namespace ProyectoPrograIV
             }
             DataBase.Db.Close();
             return CitasList;
-
-
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Sesion.Clear();
             this.Frame.Navigate(typeof(MainPage));
         }
-
         private void NuevaCita_btn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage3));
         }
-
         private void Lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Cita value = (Cita)Lista.SelectedItem;

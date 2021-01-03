@@ -17,7 +17,6 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (Sesion.Mail != null)
@@ -29,7 +28,6 @@ namespace ProyectoPrograIV
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (Correo.Text == "" || Respuesta1.Text == "" || Respuesta2.Text == "" || Respuesta3.Text == "")
@@ -60,9 +58,7 @@ namespace ProyectoPrograIV
                 {
                     Cita.DisplayDialog("Error", ex.Message);
                 }
-               
             }
-           
         }
     }
 }

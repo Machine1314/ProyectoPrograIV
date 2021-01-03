@@ -19,8 +19,6 @@ namespace ProyectoPrograIV
         {
             this.InitializeComponent();
         }
-        // Create salted password to save in database.
-
         //Botones
         //Este metodo ingresa informacion a la base de datos
         private void Login_Btn_Click(object sender, RoutedEventArgs e)
@@ -48,7 +46,6 @@ namespace ProyectoPrograIV
                         {
                             Cita.DisplayDialog("Contraseña incorrecta", "Intente de nuevo");
                         }
-
                     }
                     else
                     {
@@ -83,13 +80,11 @@ namespace ProyectoPrograIV
             {
                 Cita.DisplayDialog("Error al cargar datos", "Intente de nuevo\nError:" + mse.Message);
             }
-           
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(BlankPage2));
         }
-
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Recovery));
