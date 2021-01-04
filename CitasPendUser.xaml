@@ -17,7 +17,7 @@
         <Button x:Name="NuevaCita_btn" Content="Agendar Nueva Cita" Margin="25,348,955,277" VerticalAlignment="Stretch" FontSize="30" Click="NuevaCita_btn_Click" FocusVisualSecondaryBrush="#993484B4" Background="#33267B90" HorizontalAlignment="Stretch"/>
 
         <Grid HorizontalAlignment="Left" Height="205" Margin="595,430,0,0" VerticalAlignment="Top" Width="260"/>
-        <Button x:Name="cerrar" Content="Cerrar Sesión" Height="73" Margin="0,22,35,0" VerticalAlignment="Top" Width="150" Click="Button_Click" Foreground="Black" FocusVisualSecondaryBrush="#99101110" BorderBrush="#FF084035" Background="#332FEAFC" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <Button x:Name="cerrar" Content="Cerrar Sesión" Height="73" Margin="0,22,35,0" VerticalAlignment="Top" Width="192" Click="Button_Click" Foreground="Black" FocusVisualSecondaryBrush="#99101110" BorderBrush="#FF084035" Background="#332FEAFC" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" FontFamily="Verdana"/>
         <TextBlock x:Name="id_user" HorizontalAlignment="Left" Margin="75,231,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Collapsed"/>
 
         <ListView x:Name="Lista" Margin="0,230,75,0"
@@ -67,5 +67,6 @@
             </ListView.ItemTemplate>
         </ListView>
         <TextBlock x:Name="MensajeCncelar" HorizontalAlignment="Right" Margin="0,199,519,0" Text="Si desea cancelar la cita haga clic sobre la misma." TextWrapping="Wrap" VerticalAlignment="Top" Width="375" FontFamily="Verdana"/>
+        <Button x:Name="editarDatos" Content="Editar Datos" Margin="0,22,265,0" VerticalAlignment="Top" Background="#3349EFFF" Height="73" FontFamily="Verdana" FontSize="20" Foreground="Black" FontWeight="Bold" Click="EditarDatos_Click" HorizontalAlignment="Right" Width="170"/>
     </Grid>
 </Page>

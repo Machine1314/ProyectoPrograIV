@@ -77,6 +77,11 @@ namespace ProyectoPrograIV
             Cita value = (Cita)Lista.SelectedItem;
             Cita.DisplayCitaConf(value.Id_cita1, this.Frame);
         }
+
+        private void EditarDatos_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(EditarDatos));
+        }
     }
 }
 

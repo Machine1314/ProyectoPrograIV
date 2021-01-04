@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="ProyectoPrograIV.EditarDatos"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProyectoPrograIV"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/fondo3.png"/>
+        </Grid.Background>
+        <TextBlock HorizontalAlignment="Left" Margin="575,55,0,600" TextWrapping="Wrap" FontFamily="Verdana" FontSize="55"><Run Text="Editar Datos"/><LineBreak/><Run/></TextBlock>
+        <TextBlock Margin="412,228,0,456" Text="Nombre:" TextWrapping="Wrap" FontFamily="Verdana" FontSize="30" HorizontalAlignment="Left"/>
+        <TextBlock Margin="412,326,0,358" Text="Celular:" TextWrapping="Wrap" FontFamily="Verdana" FontSize="30" HorizontalAlignment="Left"/>
+        <TextBlock Margin="418,438,0,246" Text="Correo:" TextWrapping="Wrap" FontFamily="Verdana" FontSize="30" HorizontalAlignment="Left"/>
+        <TextBox x:Name="nombreTxt" Margin="575,222,0,0" Text="" TextWrapping="Wrap" FontFamily="Verdana" FontSize="30" InputScope="Default" Height="49" VerticalAlignment="Top" HorizontalAlignment="Left" Width="473"/>
+        <TextBox x:Name="celularTxt" Margin="575,320,0,0" Text="" TextWrapping="Wrap" FontFamily="Verdana" FontSize="30" InputScope="Default" Height="49" VerticalAlignment="Top" HorizontalAlignment="Left" Width="473"/>
+        <TextBox x:Name="correoTxt" Margin="575,432,0,0" Text="" TextWrapping="Wrap" FontFamily="Verdana" FontSize="30" InputScope="Default" Height="49" VerticalAlignment="Top" HorizontalAlignment="Left" Width="473"/>
+        <Button x:Name="Aceptar" Content="Aceptar" Margin="875,560,0,0" VerticalAlignment="Top" FontSize="30" FontFamily="Verdana" Click="Aceptar_Click" Height="70" Width="173" Background="#335FFFF6"/>
+        <Button x:Name="Cancelar" Content="Cancelar" Margin="575,560,0,0" VerticalAlignment="Top" FontSize="30" FontFamily="Verdana" Click="Cancelar_Click" Height="70" Width="192" Background="#335FFFF6"/>
+
+    </Grid>
+</Page>

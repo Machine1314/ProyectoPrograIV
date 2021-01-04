@@ -34,7 +34,7 @@ namespace ProyectoPrograIV
         {
             ContentDialog Dialog = new ContentDialog
             {
-                Title = "Cita",
+                Title = "Confirmación",
                 Content = "¿Quiere cancelar esta cita?",
                 PrimaryButtonText = "Sí",
                 CloseButtonText = "Cancelar"

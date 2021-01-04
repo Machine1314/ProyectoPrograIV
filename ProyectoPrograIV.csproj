@@ -123,6 +123,9 @@
     <Compile Include="Clave.xaml.cs">
       <DependentUpon>Clave.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditarDatos.xaml.cs">
+      <DependentUpon>EditarDatos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recovery.xaml.cs">
       <DependentUpon>Recovery.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Clave.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditarDatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
